@@ -1,0 +1,91 @@
+name: madalh
+description: Best Partner
+
+publish_to: 'none'
+
+
+version: 1.2.4+25
+
+environment:
+  sdk: '>=3.3.1 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  cupertino_icons: ^1.0.5
+  firebase_core:
+  cloud_firestore:
+  icons_plus:
+  shared_preferences:
+  loading_animation_widget: ^1.2.0+4
+  animated_text_kit: ^4.2.2
+  drop_shadow: ^0.1.0
+  loading_overlay: ^0.3.0
+  fluttertoast: ^8.2.2
+  firebase_auth:
+  email_validator: ^2.1.17
+  intl_phone_field: ^3.1.0
+  firebase_phone_auth_handler:
+  uuid:
+  provider:
+  timer_count_down: ^2.2.2
+  curved_navigation_bar:
+  settings_ui: ^2.0.2
+  dotted_border: ^2.0.0+3
+  syncfusion_flutter_charts: ^21.2.10
+  syncfusion_flutter_gauges: ^21.2.10
+  vertical_weight_slider: ^2.5.0
+  badges: ^3.1.1
+  flutter_rating_stars: ^1.0.3+4
+  flutter_svg:
+  share_plus:
+  card_swiper: ^2.0.4
+  avatar_glow: ^2.0.2
+  no_screenshot: ^0.0.1+6
+  flutter_no_internet_widget: ^1.0.0+18-dev.1
+  flutter_stripe: ^9.2.1
+  http:
+  material_dialogs:
+  chewie: ^1.5.0
+  video_player: ^2.6.1
+  lottie:
+  flutter_cube:
+  slide_countdown: ^0.6.0
+  expansion_tile_card: ^3.0.0
+  flutter_dropdown:
+  flutter_emoji_feedback:
+  select_searchable_list: ^0.1.5
+  tutorial_coach_mark: ^1.2.8
+  firebase_messaging:
+  flutter_local_notifications:
+  object_3d: ^0.0.1
+  in_app_update: ^4.1.1
+  pinput:
+  country_picker:
+  flutter_paypal_checkout: ^1.0.1
+#  facebook_app_events: ^0.19.0
+  url_launcher: ^6.2.4
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+  flutter_lints: ^2.0.1
+
+
+flutter:
+
+
+  uses-material-design: true
+
+
+  assets:
+    - assets/
+    - assets/images/
+    - assets/svg/
+    - assets/videos/

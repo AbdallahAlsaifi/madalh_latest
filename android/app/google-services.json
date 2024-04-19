@@ -1,0 +1,158 @@
+{
+  "project_info": {
+    "project_number": "19651552105",
+    "project_id": "madalh",
+    "storage_bucket": "madalh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19651552105:android:a882225c615d1bc976d3f8",
+        "android_client_info": {
+          "package_name": "com.madalh.application"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19651552105-vhp915qqgaa6cgfhna0e0er7s432b3ec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeVVMj7BReb6EBjZMyfoVo9Ix64VYaO8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19651552105-vhp915qqgaa6cgfhna0e0er7s432b3ec.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "19651552105-d750obqef9l48o2m89luandkhlklgge0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.madalh.application.madalh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19651552105:android:fa31fd6ea7038ff776d3f8",
+        "android_client_info": {
+          "package_name": "com.madalh.application.madalh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19651552105-5cifmgjqiuvn1dbk23g8s4kqsjb2rdvb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.madalh.application.madalh",
+            "certificate_hash": "f9fb5fdc4c617dd92938989c19af15fa5b213a2e"
+          }
+        },
+        {
+          "client_id": "19651552105-kgbhrcgj66srfc1268ejjppa4c51v5of.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.madalh.application.madalh",
+            "certificate_hash": "af0345aa69da980fc535f6ae07be8d7e09b43117"
+          }
+        },
+        {
+          "client_id": "19651552105-m5hmnesrak2toccjnhl4ekr39f3a02a0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.madalh.application.madalh",
+            "certificate_hash": "a195768d069b03dcc6d294bc204d8f3de8ab3eac"
+          }
+        },
+        {
+          "client_id": "19651552105-pel9dvcmvi25ao0up9plgdu0ov281i82.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.madalh.application.madalh",
+            "certificate_hash": "382e39f6aff57867fc39b2b2861309e1f4df07ce"
+          }
+        },
+        {
+          "client_id": "19651552105-vhp915qqgaa6cgfhna0e0er7s432b3ec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeVVMj7BReb6EBjZMyfoVo9Ix64VYaO8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19651552105-vhp915qqgaa6cgfhna0e0er7s432b3ec.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "19651552105-d750obqef9l48o2m89luandkhlklgge0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.madalh.application.madalh"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:19651552105:android:7c181f5d0ce5ee2876d3f8",
+        "android_client_info": {
+          "package_name": "org.appers.madalh2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "19651552105-eru6cqelid7ed9k48qt10jd8e0uc21cn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "org.appers.madalh2",
+            "certificate_hash": "f9fb5fdc4c617dd92938989c19af15fa5b213a2e"
+          }
+        },
+        {
+          "client_id": "19651552105-vhp915qqgaa6cgfhna0e0er7s432b3ec.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeVVMj7BReb6EBjZMyfoVo9Ix64VYaO8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "19651552105-vhp915qqgaa6cgfhna0e0er7s432b3ec.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "19651552105-d750obqef9l48o2m89luandkhlklgge0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.madalh.application.madalh"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>OBJ Loader Example</title>
+  <style>
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="canvas"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/@loaders.gl/core"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@loaders.gl/obj"></script>
+  <script>
+    let canvas = document.getElementById('canvas');
+    let gl = canvas.getContext('webgl');
+
+    let modelURL = 'male.obj';
+    let modelData;
+
+    function resizePart(partIndex, scale) {
+      let transform = new Float32Array(16);
+      mat4.fromScaling(transform, [scale, scale, scale]);
+      modelData.nodes[partIndex].matrix = transform;
+    }
+
+    function loadModel(url) {
+      fetch(url)
+        .then(response => response.arrayBuffer())
+        .then(buffer => parseObj(buffer))
+        .then(data => {
+          modelData = data;
+
+          // Resize parts
+          resizePart(0, 1.5); // Example: resize first part by 50%
+          resizePart(1, 0.8); // Example: resize second part by 20%
+          
+          // Render model
+          let loader = new OBJLoader();
+          let model = loader.parse(modelData);
+          let renderer = new WebGLRenderer({ context: gl });
+          renderer.render({ scene: model });
+        });
+    }
+
+    loadModel(modelURL);
+  </script>
+</body>
+
+</html>
