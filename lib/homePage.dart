@@ -19,9 +19,9 @@ import 'package:madalh/view/profileScreen/profileScreen.dart';
 import 'package:madalh/view/settings/settingsScreen.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
+import 'package:restart_app/restart_app.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tutorial_coach_mark/tutorial_coach_mark.dart';
-
 import 'auth/verifyPN.dart';
 import 'controllers/homePageController.dart';
 import 'controllers/systemController.dart';
@@ -354,6 +354,9 @@ class _HomePageState extends State<HomePage> {
           }
         });
       });
+      // Future.delayed(Duration(milliseconds: 2500), (){
+      //   Restart.restartApp();
+      // });
     });
     userActive();
     setIsLoadingToFalse();

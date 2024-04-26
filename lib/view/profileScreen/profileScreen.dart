@@ -13,6 +13,7 @@ import 'package:madalh/controllers/systemController.dart';
 import 'package:madalh/exportConstants.dart';
 import 'package:madalh/questions/questionsEdit/questionsEdit.dart';
 import 'package:madalh/questions/questionsReuseable.dart';
+import 'package:madalh/widgets/goalLine.dart';
 import 'package:provider/provider.dart';
 
 import '../../homePage.dart';
@@ -26,6 +27,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   double progress = 0.0;
+
   @override
   void initState() {
     super.initState();
@@ -54,7 +56,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 showMsgNow = true;
               });
             });
-            Future.delayed( Duration.zero, () {
+            Future.delayed(Duration.zero, () {
               _showDialog(context);
               setState(() {
                 showScaffold = true;
@@ -65,6 +67,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       });
     });
   }
+
   bool showScaffold = false;
   bool isLoading = false;
   bool showMsgNow = false;
@@ -213,14 +216,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   calculatePercentage() async {
     // retrieve total number of questions from Firestore
-    var snap = await constants.firestore.collection('musers').doc(constants.auth.currentUser!.uid).get();
+    var snap = await constants.firestore
+        .collection('musers')
+        .doc(constants.auth.currentUser!.uid)
+        .get();
     List completedCat = snap.data()!['completedCat'] ?? [];
     print(completedCat);
-    if(completedCat.isEmpty){
+    if (completedCat.isEmpty) {
       setState(() {
         totalPercentage = 0.0;
       });
-    }else{
+    } else {
       var questionsRef1 = _firestore
           .collection('questions')
           .where('gender', whereIn: [gender, 'all']);
@@ -252,14 +258,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
         totalPercentage = _totalPercentage;
       });
     }
-
   }
 
   getData() async {
-    try{
+    try {
       var snap = await _firestore.collection('questions').doc('qCat').get();
-      var snap2 =
-      await _firestore.collection('musers').doc(_auth.currentUser!.uid).get();
+      var snap2 = await _firestore
+          .collection('musers')
+          .doc(_auth.currentUser!.uid)
+          .get();
       setState(() {
         gender = snap2.data()!['gender'];
         questionsRef = _firestore
@@ -274,7 +281,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         pquestionsCategories
             .removeWhere((element) => finishedCat.contains(element));
       });
-    }catch(e){
+    } catch (e) {
       debugPrint(e.toString());
     }
   }
@@ -289,7 +296,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return Container(
         padding: EdgeInsets.all(10),
         width: constants.screenWidth,
-        height: constants.screenHeight*0.85,
+        height: constants.screenHeight * 0.85,
         child: Column(
           children: [
             Row(
@@ -334,17 +341,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       totalPercentage == 100
                           ? Text(
-                        'الملف مكتمل',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      )
+                              'الملف مكتمل',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            )
                           : Text(
-                        'الملف غير مكتمل',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold),
-                      ),
+                              'الملف غير مكتمل',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                            ),
                       Text(
                         '${totalPercentage.toStringAsFixed(2)}%',
                         style: TextStyle(
@@ -360,172 +367,251 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
-
                   children: [
-
+                    GoalLine(
+                        listOfAllLength: (questionsCategories.length +
+                            pquestionsCategories.length),
+                        startIcon: Icons.circle_outlined,
+                        endIcon: Icons.flag,
+                        personIcon: Icons.accessibility,
+                        listofRemainingLength: finishedCat.length),
                     questionsCategories.isEmpty
                         ? Container()
                         : Column(
-                      children: [
-                        Divider(
-                          endIndent: 10,
-                          indent: 10,
-                        ),
-                        constants.smallText('غير مكتمل', context,
-                            color: Colors.redAccent),
-                        ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            return Consumer<QController>(
-                              builder:
-                                  (BuildContext context, value, Widget? child) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    //TODO: what happens after clicking
-
-                                    QController()
-                                        .setCategory(questionsCategories[index]);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => QuestionReuseable(isMainAnswer: true,
-                                              category: questionsCategories[index]),
-                                        ));
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.all(10),
-                                    padding: EdgeInsets.all(5),
-                                    width: constants.screenWidth * 0.9,
-                                    height: constants.screenHeight * 0.1,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: constants.greyC),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        constants.smallText(
-                                            '${questionsCategories[index]}',
-                                            context,
-                                            color: Colors.red),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          itemCount: questionsCategories.length,
-                          shrinkWrap: true,
-                        ),
-                      ],
-                    ),
-                    pquestionsCategories.isEmpty
-                        ? Container()
-                        : Column(
-                      children: [
-                        Divider(
-                          endIndent: 10,
-                          indent: 10,
-                        ),
-                        constants.smallText('غير مكتمل', context,
-                            color: Colors.redAccent),
-                        ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            return Consumer<QController>(
-                              builder:
-                                  (BuildContext context, value, Widget? child) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    //TODO: what happens after clicking
-
-                                    QController()
-                                        .setCategory(pquestionsCategories[index]);
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => QuestionReuseable(isMainAnswer: true,
-                                              category:
-                                              pquestionsCategories[index]),
-                                        ));
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.all(10),
-                                    padding: EdgeInsets.all(5),
-                                    width: constants.screenWidth * 0.9,
-                                    height: constants.screenHeight * 0.1,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        color: constants.greyC),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        constants.smallText(
-                                            '${pquestionsCategories[index]}',
-                                            context,
-                                            color: Colors.red),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          itemCount: pquestionsCategories.length,
-                          shrinkWrap: true,
-                        ),
-                      ],
-                    ),
-                    additionalQuestions.isEmpty
-                        ? Container()
-                        : Column(
-                      children: [
-                        Divider(
-                          endIndent: 10,
-                          indent: 10,
-                        ),
-                        constants.smallText('غير مكتمل', context,
-                            color: Colors.redAccent),
-                        Consumer<QController>(
-                          builder: (BuildContext context, value, Widget? child) {
-                            return GestureDetector(
-                              onTap: () {
-                                //TODO: what happens after clicking
-
-                                // QController()
-                                //     .setCategory(additionalQuestions[index]['category']);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => QuestionReuseable(isMainAnswer: false,
-                                        category: additionalQuestions[0]
-                                        ['category'],
-                                        isExtra: true,
-                                        AdditionalQuestions: additionalQuestions,
-                                      ),
-                                    ));
-                              },
-                              child: Container(
-                                margin: EdgeInsets.all(10),
-                                padding: EdgeInsets.all(5),
-                                width: constants.screenWidth * 0.9,
-                                height: constants.screenHeight * 0.1,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: constants.greyC),
-                                child: Column(
+                            children: [
+                              Divider(
+                                endIndent: 10,
+                                indent: 10,
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 25, bottom: 25),
+                                child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    constants.smallText('أسئلة إضافية', context,
-                                        color: Colors.red),
+                                    Icon(
+                                      Icons.cancel,
+                                      color: Colors.red,
+                                    ),
+                                    constants.smallText('غير مكتمل', context,
+                                        color: Colors.redAccent),
                                   ],
                                 ),
                               ),
-                            );
-                          },
-                        ),
-                      ],
-                    ),
+                              GridView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: questionsCategories.length,
+                                shrinkWrap: true,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 15,
+                                        mainAxisSpacing: 15),
+                                itemBuilder: (BuildContext context, int index) {
+                                  // Calculate row and column index based on the index
+                                  int row = index ~/ 3;
+                                  int col = index % 3;
+
+                                  // Return a small square widget
+                                  return Consumer<QController>(
+                                    builder: (BuildContext context, value,
+                                        Widget? child) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          //TODO: what happens after clicking
+
+                                          QController().setCategory(
+                                              questionsCategories[index]);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    QuestionReuseable(
+                                                        isMainAnswer: true,
+                                                        category:
+                                                            questionsCategories[
+                                                                index]),
+                                              ));
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.all(10),
+                                              padding: EdgeInsets.all(5),
+                                              width: 70,
+                                              height: 70,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(3),
+                                                  color: constants.greyC),
+                                              child: Icon(Icons
+                                                  .sentiment_very_dissatisfied),
+                                            ),
+                                            constants.smallText(
+                                                '${questionsCategories[index]}',
+                                                context,
+                                                color: Colors.red)
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              )
+                            ],
+                          ),
+                    pquestionsCategories.isEmpty
+                        ? Container()
+                        : Column(
+                            children: [
+                              Divider(
+                                endIndent: 10,
+                                indent: 10,
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 25, bottom: 25),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.cancel,
+                                      color: Colors.red,
+                                    ),
+                                    constants.smallText('غير مكتمل', context,
+                                        color: Colors.redAccent),
+                                  ],
+                                ),
+                              ),
+                              GridView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: pquestionsCategories.length,
+                                shrinkWrap: true,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 15,
+                                        mainAxisSpacing: 15),
+                                itemBuilder: (BuildContext context, int index) {
+                                  // Calculate row and column index based on the index
+                                  int row = index ~/ 3;
+                                  int col = index % 3;
+
+                                  // Return a small square widget
+                                  return Consumer<QController>(
+                                    builder: (BuildContext context, value,
+                                        Widget? child) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          //TODO: what happens after clicking
+
+                                          QController().setCategory(
+                                              pquestionsCategories[index]);
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    QuestionReuseable(
+                                                        isMainAnswer: true,
+                                                        category:
+                                                            pquestionsCategories[
+                                                                index]),
+                                              ));
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.all(10),
+                                              padding: EdgeInsets.all(5),
+                                              width: 70,
+                                              height: 70,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(3),
+                                                  color: constants.greyC),
+                                              child: Icon(Icons
+                                                  .sentiment_very_dissatisfied),
+                                            ),
+                                            constants.smallText(
+                                                '${pquestionsCategories[index]}',
+                                                context,
+                                                color: Colors.red)
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              )
+                            ],
+                          ),
+                    additionalQuestions.isEmpty
+                        ? Container()
+                        : Column(
+                            children: [
+                              Divider(
+                                endIndent: 10,
+                                indent: 10,
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 25, bottom: 25),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.cancel,
+                                      color: Colors.red,
+                                    ),
+                                    constants.smallText('غير مكتمل', context,
+                                        color: Colors.redAccent),
+                                  ],
+                                ),
+                              ),
+                              Consumer<QController>(
+                                builder: (BuildContext context, value,
+                                    Widget? child) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      //TODO: what happens after clicking
+
+                                      // QController()
+                                      //     .setCategory(additionalQuestions[index]['category']);
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                QuestionReuseable(
+                                              isMainAnswer: false,
+                                              category: additionalQuestions[0]
+                                                  ['category'],
+                                              isExtra: true,
+                                              AdditionalQuestions:
+                                                  additionalQuestions,
+                                            ),
+                                          ));
+                                    },
+                                    child: Container(
+                                      margin: EdgeInsets.all(10),
+                                      padding: EdgeInsets.all(5),
+                                      width: constants.screenWidth * 0.9,
+                                      height: constants.screenHeight * 0.1,
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          color: constants.greyC),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          constants.smallText(
+                                              'أسئلة إضافية', context,
+                                              color: Colors.red),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                     Divider(
                       endIndent: 10,
                       indent: 10,
@@ -533,88 +619,162 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     finishedCat.isEmpty
                         ? Container()
                         : Column(
-                      children: [
-                        constants.smallText('مكتمل', context,
-                            color: Colors.redAccent),
-                        ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (BuildContext context, int index) {
-                            return Consumer<QController>(
-                              builder:
-                                  (BuildContext context, value, Widget? child) {
-                                return GestureDetector(
-                                  onTap: () {
-                                    //TODO: what happens after clicking
-                                  },
-                                  child: Container(
-                                    margin: EdgeInsets.all(10),
-                                    padding: EdgeInsets.all(5),
-                                    width: constants.screenWidth * 0.9,
-                                    height: constants.screenHeight * 0.1,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(15),
-                                        gradient: valueServ.systemGradient),
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Stack(
-                                          alignment: Alignment.center,
-                                          children: [
-                                            Align(
-                                                alignment: Alignment.bottomRight,
-                                                child: Icon(
-                                                  Bootstrap.star_fill,
-                                                  color: Colors.white,
-                                                )),
-                                            constants.smallText(
-                                              '${finishedCat[index]}',
-                                              context,
-                                            ),
-                                            Align(
-                                                alignment: Alignment.bottomLeft,
-                                                child: Icon(
-                                                  Bootstrap.star_fill,
-                                                  color: Colors.white,
-                                                ))
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          itemCount: finishedCat.length,
-                          shrinkWrap: true,
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 5, bottom: 5),
-                          child: FilledButton(
-                              onPressed: () {
-                                navigateTo(QuestionsEdit(), context);
-                              },
-                              child: Container(
-                                padding: EdgeInsets.only(
-                                    left: 10, right: 10, top: 5, bottom: 5),
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(top: 25, bottom: 25),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
                                   children: [
                                     Icon(
-                                      Icons.edit,
-                                      color: Colors.white,
+                                      Icons.check_box,
+                                      color: Colors.green,
                                     ),
-                                    Container(
-                                      width: 5,
-                                    ),
-                                    Text('تعديل الإجابات'),
+                                    constants.smallText('مكتمل', context,
+                                        color: Colors.redAccent),
                                   ],
                                 ),
-                              )),
-                        )
-                      ],
-                    ),
+                              ),
+                              // ListView.builder(
+                              //   physics: const NeverScrollableScrollPhysics(),
+                              //   itemBuilder: (BuildContext context, int index) {
+                              //     return Consumer<QController>(
+                              //       builder:
+                              //           (BuildContext context, value, Widget? child) {
+                              //         return GestureDetector(
+                              //           onTap: () {
+                              //             //TODO: what happens after clicking
+                              //           },
+                              //           child: Container(
+                              //             margin: EdgeInsets.all(10),
+                              //             padding: EdgeInsets.all(5),
+                              //             width: constants.screenWidth * 0.9,
+                              //             height: constants.screenHeight * 0.1,
+                              //             decoration: BoxDecoration(
+                              //                 borderRadius: BorderRadius.circular(15),
+                              //                 gradient: valueServ.systemGradient),
+                              //             child: Column(
+                              //               mainAxisAlignment: MainAxisAlignment.center,
+                              //               children: [
+                              //                 Stack(
+                              //                   alignment: Alignment.center,
+                              //                   children: [
+                              //                     Align(
+                              //                         alignment: Alignment.bottomRight,
+                              //                         child: Icon(
+                              //                           Bootstrap.star_fill,
+                              //                           color: Colors.white,
+                              //                         )),
+                              //                     constants.smallText(
+                              //                       '${finishedCat[index]}',
+                              //                       context,
+                              //                     ),
+                              //                     Align(
+                              //                         alignment: Alignment.bottomLeft,
+                              //                         child: Icon(
+                              //                           Bootstrap.star_fill,
+                              //                           color: Colors.white,
+                              //                         ))
+                              //                   ],
+                              //                 ),
+                              //               ],
+                              //             ),
+                              //           ),
+                              //         );
+                              //       },
+                              //     );
+                              //   },
+                              //   itemCount: finishedCat.length,
+                              //   shrinkWrap: true,
+                              // ),
+                              GridView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: finishedCat.length,
+                                shrinkWrap: true,
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 15,
+                                        mainAxisSpacing: 15),
+                                itemBuilder: (BuildContext context, int index) {
+                                  // Calculate row and column index based on the index
+                                  int row = index ~/ 3;
+                                  int col = index % 3;
+
+                                  // Return a small square widget
+                                  return Consumer<QController>(
+                                    builder: (BuildContext context, value,
+                                        Widget? child) {
+                                      return GestureDetector(
+                                        onTap: () {
+                                          // //TODO: what happens after clicking
+                                          //
+                                          // QController()
+                                          //     .setCategory(pquestionsCategories[index]);
+                                          // Navigator.push(
+                                          //     context,
+                                          //     MaterialPageRoute(
+                                          //       builder: (context) => QuestionReuseable(isMainAnswer: true,
+                                          //           category: pquestionsCategories[index]),
+                                          //     ));
+                                        },
+                                        child: Column(
+                                          children: [
+                                            Container(
+                                              margin: EdgeInsets.all(10),
+                                              padding: EdgeInsets.all(5),
+                                              width: 70,
+                                              height: 70,
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(3),
+                                                  color: Colors.amber),
+                                              child: Icon(
+                                                Icons.star,
+                                                color: Colors.white,
+                                              ),
+                                            ),
+                                            constants.smallText(
+                                                '${finishedCat[index]}',
+                                                context,
+                                                color: Colors.amber)
+                                          ],
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 5, bottom: 5),
+                                child: FilledButton(
+                                    onPressed: () {
+                                      navigateTo(QuestionsEdit(), context);
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.only(
+                                          left: 10,
+                                          right: 10,
+                                          top: 5,
+                                          bottom: 5),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Icon(
+                                            Icons.edit,
+                                            color: Colors.white,
+                                          ),
+                                          Container(
+                                            width: 5,
+                                          ),
+                                          Text('تعديل الإجابات'),
+                                        ],
+                                      ),
+                                    )),
+                              )
+                            ],
+                          ),
                   ],
                 ),
               ),
@@ -623,6 +783,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       );
     }));
-
   }
 }

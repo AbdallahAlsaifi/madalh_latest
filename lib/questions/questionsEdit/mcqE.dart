@@ -34,7 +34,7 @@ class MCQE extends StatefulWidget {
   State<MCQE> createState() => _MCQEState();
 }
 
-class _MCQEState extends State<MCQE> {
+class _MCQEState extends State<MCQE> with TickerProviderStateMixin{
   List<MCAnswers> answers = [];
 
   late MCQuestion question;
@@ -49,12 +49,26 @@ class _MCQEState extends State<MCQE> {
     question = MCQuestion(question: widget.question, answers: answers);
     print(widget.multiAnswer);
     super.initState();
+    Future.delayed(Duration(milliseconds: 150), (){
+      _animationController.forward();
+
+    });
   }
 
   int countTrue(List list) {
     return list.where((item) => item.isChosen == true).length;
   }
-
+  late AnimationController _animationController = AnimationController(
+    vsync: this,
+    duration: Duration(milliseconds: 500),
+  );
+  late Animation <Offset> _animation = Tween <Offset>(
+    begin: Offset(1.0, 0.0),
+    end: Offset.zero,
+  ).animate(CurvedAnimation(
+    parent: _animationController,
+    curve: Curves.easeInOut,
+  ));
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -145,13 +159,18 @@ class _MCQEState extends State<MCQE> {
                                 }
                               }
                             },
-                            child: Chip(
-                              label: constants.smallText(
-                                  question.answers[index].AnswerText, context),
-                              backgroundColor:
-                                  question.answers[index].isChosen == true
-                                      ? Theme.of(context).primaryColor
-                                      : Colors.grey,
+                            child: SlideTransition(
+                              position: _animation,
+                              child: Chip(
+                                label: constants.smallText(
+                                  question.answers[index].AnswerText,
+                                  context,
+                                ),
+                                backgroundColor:
+                                question.answers[index].isChosen == true
+                                    ? Theme.of(context).primaryColor
+                                    : Colors.grey,
+                              ),
                             ),
                           );
                         }),

@@ -398,7 +398,8 @@ class _registerScreensState extends State<registerScreens> {
                       isLoading = false;
                     });
 
-                  } catch (e) {
+                  } on FirebaseAuthException catch (e) {
+                    print(e);
                     Fluttertoast.showToast(msg: e.toString());
 
                     setState(() {

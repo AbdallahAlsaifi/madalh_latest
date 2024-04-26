@@ -1144,7 +1144,7 @@ Widget UserInfo({Color textColor = Colors.grey,
 }
 
 Widget smallText(text, context, {Color color = Colors.white}) {
-  if (color == Colors.white) {} else {
+  if (color == Colors.white) {}else if(color == Colors.amber){} else {
     color = Theme
         .of(context)
         .primaryColor;
@@ -1153,9 +1153,10 @@ Widget smallText(text, context, {Color color = Colors.white}) {
     '$text',
     textDirection: TextDirection.rtl,
     overflow: TextOverflow.visible,
+    textAlign: TextAlign.center,
     maxLines: 3,
     style: TextStyle(
-        fontSize: screenWidth * 0.05,
+        fontSize: screenWidth * 0.035,
         color: color,
         fontWeight: FontWeight.bold),
   );

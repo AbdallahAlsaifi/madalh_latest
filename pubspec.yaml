@@ -4,7 +4,7 @@ description: Best Partner
 publish_to: 'none'
 
 
-version: 1.2.4+25
+version: 1.2.5+26
 
 environment:
   sdk: '>=3.3.1 <4.0.0'
@@ -16,8 +16,8 @@ dependencies:
 
 
   cupertino_icons: ^1.0.5
-  firebase_core:
-  cloud_firestore:
+  firebase_core: ^2.30.1
+  cloud_firestore: ^4.17.2
   icons_plus:
   shared_preferences:
   loading_animation_widget: ^1.2.0+4
@@ -25,7 +25,7 @@ dependencies:
   drop_shadow: ^0.1.0
   loading_overlay: ^0.3.0
   fluttertoast: ^8.2.2
-  firebase_auth:
+  firebase_auth: ^4.19.4
   email_validator: ^2.1.17
   intl_phone_field: ^3.1.0
   firebase_phone_auth_handler:
@@ -49,8 +49,8 @@ dependencies:
   flutter_stripe: ^9.2.1
   http:
   material_dialogs:
-  chewie: ^1.5.0
-  video_player: ^2.6.1
+  chewie: ^1.8.1
+  video_player: ^2.8.6
   lottie:
   flutter_cube:
   slide_countdown: ^0.6.0
@@ -59,13 +59,15 @@ dependencies:
   flutter_emoji_feedback:
   select_searchable_list: ^0.1.5
   tutorial_coach_mark: ^1.2.8
-  firebase_messaging:
+  firebase_messaging: ^14.9.1
   flutter_local_notifications:
   object_3d: ^0.0.1
-  in_app_update: ^4.1.1
+  in_app_update: ^4.2.2
   pinput:
   country_picker:
   flutter_paypal_checkout: ^1.0.1
+  restart_app: ^1.2.1
+  step_tracker: ^0.0.5
 #  facebook_app_events: ^0.19.0
   url_launcher: ^6.2.4
 

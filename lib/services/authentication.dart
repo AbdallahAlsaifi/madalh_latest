@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:madalh/models/userModel.dart' as model;
 import 'package:uuid/uuid.dart';
@@ -95,6 +96,7 @@ class FirebaseCustomAuth {
       result = true;
       navigateTo(const HomePage(), context);
     } on FirebaseAuthException catch (e) {
+      debugPrint(e.toString());
       Fluttertoast.showToast(msg: e.toString().split(']')[1]);
       result = false;
     }
