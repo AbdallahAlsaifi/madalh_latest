@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -43,6 +42,7 @@ import 'package:madalh/questions/questions.dart';
 
 import 'landingPages.dart';
 import 'models/hoppiesmcq.dart';
+
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'high_importance_channel', // id
   'High Importance Notifications',
@@ -54,13 +54,12 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
   enableVibration: true,
 );
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
+    FlutterLocalNotificationsPlugin();
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-
   await Firebase.initializeApp();
-
 }
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -70,7 +69,7 @@ void main() async {
 
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
     alert: true, // Required to display a heads up notification
@@ -85,22 +84,21 @@ void main() async {
       'pk_live_51LCR7AKoEwOhE0oQ8JMzwVl0G2pPHMmTNiAHgtp8dkN2zazEE1yKWL4FPIznBsPw3ecHs7Mqm3imxWMsJSc1UXsa00VfzNUMaO';
   await Stripe.instance.applySettings();
 
-
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) async {
     ErrorWidget.builder = (FlutterErrorDetails details) => Scaffold(
           backgroundColor: Colors.white,
           body: Center(
               child: Container(
-
             child: constants.loadingAnimation(),
           )),
         );
 
-
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool isLandingPrefs = prefs.getBool('isLanding') ?? true;
-    runApp(MyApp(isLanding: isLandingPrefs, ));
+    runApp(MyApp(
+      isLanding: isLandingPrefs,
+    ));
   });
 }
 
@@ -149,11 +147,14 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider<MatchScreenController>(
             create: (context) => MatchScreenController(),
-          ),ChangeNotifierProvider<authP.AuthProvider>(
+          ),
+          ChangeNotifierProvider<authP.AuthProvider>(
             create: (context) => authP.AuthProvider(),
-          ),ChangeNotifierProvider<AuthProviderForget>(
+          ),
+          ChangeNotifierProvider<AuthProviderForget>(
             create: (context) => AuthProviderForget(),
-          ),ChangeNotifierProvider<HomePageController>(
+          ),
+          ChangeNotifierProvider<HomePageController>(
             create: (context) => HomePageController(),
           ),
         ],
@@ -161,63 +162,75 @@ class MyApp extends StatelessWidget {
           return Consumer<AppService>(
             builder: (_, AppServiceData, __) {
               return GestureDetector(
-                onTap: (){
+                onTap: () {
                   FocusScope.of(context).unfocus();
                 },
                 child: MaterialApp(
                   debugShowCheckedModeBanner: false,
                   title: 'MaDalah',
                   theme: ThemeData(
-                    // primaryColor: AppServiceData.primaryColor,
+                      // primaryColor: AppServiceData.primaryColor,
 
                       useMaterial3: false,
-                      backgroundColor: Colors.white,
+                      dialogBackgroundColor: Colors.white,
                       primarySwatch: AppServiceData.systemThemeColor,
                       scaffoldBackgroundColor: Colors.white),
                   home: ScrollConfiguration(
-                    behavior: NewScrollBehavior(),
-                    child: isLanding == true ? LandingPages() : StreamBuilder(builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                      if(snapshot.data['onMaintenance'] == true){
-                        return maintenance();
-                      }else if(snapshot.hasError){
-                        return Center(child: constants.loadingAnimation(),);
-                      }else{
-                        return StreamBuilder(
-                            stream: FirebaseAuth.instance.authStateChanges(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.active) {
-                                if (snapshot.hasData) {
-                                  // return HMCQ();
-                                  if(FirebaseAuth.instance.currentUser!.email!.split('@')[1] == 'partner.com'){
-                                    return PartnerMain();
-                                  }else{
-                                    return HomePage();
-                                  }
-                                  // return  ? PartnerMain() : HomePage();
-                                  // return congrats();
-                                  // return testLast();
-                                  // return congrats();
+                      behavior: NewScrollBehavior(),
+                      child: isLanding == true
+                          ? LandingPages()
+                          : StreamBuilder(
+                              builder: (BuildContext context,
+                                  AsyncSnapshot<dynamic> snapshot) {
+                                if (snapshot.data['onMaintenance'] == true) {
+                                  return maintenance();
                                 } else if (snapshot.hasError) {
                                   return Center(
-                                    child: Text('${snapshot.error}'),
+                                    child: constants.loadingAnimation(),
                                   );
-                                }
-                              }
+                                } else {
+                                  return StreamBuilder(
+                                      stream: FirebaseAuth.instance
+                                          .authStateChanges(),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.active) {
+                                          if (snapshot.hasData) {
+                                            // return HMCQ();
+                                            if (FirebaseAuth.instance
+                                                    .currentUser!.email!
+                                                    .split('@')[1] ==
+                                                'partner.com') {
+                                              return PartnerMain();
+                                            } else {
+                                              return HomePage();
+                                            }
+                                            // return  ? PartnerMain() : HomePage();
+                                            // return congrats();
+                                            // return testLast();
+                                            // return congrats();
+                                          } else if (snapshot.hasError) {
+                                            return Center(
+                                              child: Text('${snapshot.error}'),
+                                            );
+                                          }
+                                        }
 
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return Center(
-                                  child: constants.loadingAnimation(),
-                                );
-                              }
-                              return LoginScreen();
-                            });
-                      }
-                    },
-                      stream: FirebaseFirestore.instance.collection('AppSettings').doc('appSettings').snapshots(),
-                    )
-                  ),
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.waiting) {
+                                          return Center(
+                                            child: constants.loadingAnimation(),
+                                          );
+                                        }
+                                        return LoginScreen();
+                                      });
+                                }
+                              },
+                              stream: FirebaseFirestore.instance
+                                  .collection('AppSettings')
+                                  .doc('appSettings')
+                                  .snapshots(),
+                            )),
                 ),
               );
             },

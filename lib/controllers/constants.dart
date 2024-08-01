@@ -20,6 +20,7 @@ const maleGO = LinearGradient(colors: [azure2, azure1]);
 
 const peach1 = Color(0xffF256FD);
 const peach2 = Color(0xfff8d5e4);
+const landingTextColor = Color.fromARGB(255, 23, 22, 24);
 const landingColor = Color(0xffBA8ED4);
 const femaleG = LinearGradient(colors: [peach1, peach2]);
 const femaleGO = LinearGradient(colors: [peach2, peach1]);
@@ -97,7 +98,6 @@ void MsgDialog(BuildContext context, Msg) async {
         '${Msg.replaceAll('firebase', '').replaceAll('Firebase', '').replaceAll('Firestore', '').replaceAll('firestore', '')}',
       ),
       actions: [
-
         FilledButton(
           child: const Text('Ok'),
           onPressed: () => Navigator.pop(context, 'User canceled dialog'),
@@ -105,8 +105,8 @@ void MsgDialog(BuildContext context, Msg) async {
       ],
     ),
   );
-
 }
+
 setBatch({
   required WriteBatch batch,
   required questionId,
@@ -159,7 +159,7 @@ final pcities = [
   'رفح',
   'شمال غزة',
   'الداخل',
-'غير ذلك'
+  'غير ذلك'
 ];
 final scities = [
   'دمشق',
@@ -168,7 +168,7 @@ final scities = [
   'الجولان',
   'درعا',
   'الشام'
-  'حماة',
+      'حماة',
   'اللاذقية',
   'دير الزور',
   'الرقة',
@@ -1120,9 +1120,10 @@ Color greyC = Colors.grey.shade300;
 const prefsGender = "selectedGender";
 const prefsLanguage = "selectedLanguage";
 
-Widget UserInfo({Color textColor = Colors.grey,
-  String text = '',
-  Color iconColor = Colors.grey}) {
+Widget UserInfo(
+    {Color textColor = Colors.grey,
+    String text = '',
+    Color iconColor = Colors.grey}) {
   return Padding(
     padding: const EdgeInsets.all(8.0),
     child: Wrap(
@@ -1144,10 +1145,10 @@ Widget UserInfo({Color textColor = Colors.grey,
 }
 
 Widget smallText(text, context, {Color color = Colors.white}) {
-  if (color == Colors.white) {}else if(color == Colors.amber){} else {
-    color = Theme
-        .of(context)
-        .primaryColor;
+  if (color == Colors.white) {
+  } else if (color == Colors.amber) {
+  } else {
+    color = Theme.of(context).primaryColor;
   }
   return Text(
     '$text',
@@ -1200,10 +1201,9 @@ getMessageFromErrorCode(errorCode) {
 }
 
 Widget bigText(text, context, {Color color = Colors.white}) {
-  if (color == Colors.white) {} else {
-    color = Theme
-        .of(context)
-        .primaryColor;
+  if (color == Colors.white) {
+  } else {
+    color = Theme.of(context).primaryColor;
   }
   return Text(
     '$text',
@@ -1214,10 +1214,9 @@ Widget bigText(text, context, {Color color = Colors.white}) {
 Widget gradientText(text, gradient, {Color color = Colors.white}) {
   return ShaderMask(
     blendMode: BlendMode.srcIn,
-    shaderCallback: (bounds) =>
-        gradient.createShader(
-          Rect.fromLTWH(0, 0, bounds.width, bounds.height),
-        ),
+    shaderCallback: (bounds) => gradient.createShader(
+      Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+    ),
     child: Text(
       text,
       style: TextStyle(color: color, fontSize: screenWidth * 0.11),
@@ -1232,11 +1231,10 @@ Widget loadingAnimation() {
 
 Widget longButton(text, context,
     {Color textColor = Colors.white, buttonColor = Colors.white}) {
-  if (buttonColor == Colors.white) {} else
-  if (buttonColor == Colors.grey.shade300) {} else {
-    buttonColor = Theme
-        .of(context)
-        .primaryColor;
+  if (buttonColor == Colors.white) {
+  } else if (buttonColor == Colors.grey.shade300) {
+  } else {
+    buttonColor = Theme.of(context).primaryColor;
   }
   return Container(
     padding: EdgeInsets.all(10),
@@ -1254,12 +1252,10 @@ Widget longButton(text, context,
 
 Widget longButtonWithIcon(text, context,
     {Color textColor = Colors.white,
-      Color buttonColor = Colors.white,
-      Icon icon = const Icon(Icons.question_mark_outlined)}) {
+    Color buttonColor = Colors.white,
+    Icon icon = const Icon(Icons.question_mark_outlined)}) {
   if (buttonColor != Colors.white || buttonColor != greyC) {
-    buttonColor = Theme
-        .of(context)
-        .primaryColor;
+    buttonColor = Theme.of(context).primaryColor;
   }
   return Container(
     padding: EdgeInsets.all(10),
@@ -1280,16 +1276,15 @@ Widget longButtonWithIcon(text, context,
   );
 }
 
-Widget longButtonWithLogo(text,
-    Logo logo, {
-      Color textColor = Colors.white,
-      context,
-      Color buttonColor = Colors.white,
-    }) {
+Widget longButtonWithLogo(
+  text,
+  Logo logo, {
+  Color textColor = Colors.white,
+  context,
+  Color buttonColor = Colors.white,
+}) {
   if (buttonColor != Colors.white || buttonColor != greyC) {
-    buttonColor = Theme
-        .of(context)
-        .primaryColor;
+    buttonColor = Theme.of(context).primaryColor;
   }
   return Container(
     padding: EdgeInsets.all(10),
@@ -1309,13 +1304,11 @@ Widget longButtonWithLogo(text,
 
 Widget CustomTextField(controller, hintText, context,
     {TextDirection hintTextDirection = TextDirection.rtl,
-      TextDirection textDirection = TextDirection.rtl,
-      obsecure = true,
-      Function(String)? onChanged,
-      borderColor = Colors.white}) {
-  borderColor = Theme
-      .of(context)
-      .primaryColor;
+    TextDirection textDirection = TextDirection.rtl,
+    obsecure = true,
+    Function(String)? onChanged,
+    borderColor = Colors.white}) {
+  borderColor = Theme.of(context).primaryColor;
   return Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [

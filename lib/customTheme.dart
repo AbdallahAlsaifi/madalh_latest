@@ -32,13 +32,13 @@ class CustomTheme extends StatefulWidget {
 
   static ThemeData of(BuildContext context) {
     _CustomTheme? inherited =
-    (context.dependOnInheritedWidgetOfExactType<_CustomTheme>());
+        (context.dependOnInheritedWidgetOfExactType<_CustomTheme>());
     return inherited!.data.theme;
   }
 
   static CustomThemeState instanceOf(BuildContext context) {
     _CustomTheme? inherited =
-    (context.dependOnInheritedWidgetOfExactType<_CustomTheme>());
+        (context.dependOnInheritedWidgetOfExactType<_CustomTheme>());
     return inherited!.data;
   }
 }
@@ -72,22 +72,21 @@ class CustomThemeState extends State<CustomTheme> {
 enum MyThemeKeys { LIGHT, DARK }
 
 class MyThemes {
-
-    ThemeData lightTheme = ThemeData(
-    // primaryColor: AppServiceData.primaryColor,
+  ThemeData lightTheme = ThemeData(
+      // primaryColor: AppServiceData.primaryColor,
       useMaterial3: false,
-      backgroundColor: Colors.white,
+      dialogBackgroundColor: Colors.white,
       primarySwatch: constants.maleSwatch,
       scaffoldBackgroundColor: Colors.white);
 
-    ThemeData darkTheme = ThemeData(
-    // primaryColor: AppServiceData.primaryColor,
+  ThemeData darkTheme = ThemeData(
+      // primaryColor: AppServiceData.primaryColor,
       useMaterial3: false,
-      backgroundColor: Colors.white,
+      dialogBackgroundColor: Colors.white,
       primarySwatch: constants.femaleSwatch,
       scaffoldBackgroundColor: Colors.white);
 
-   ThemeData getThemeFromKey(MyThemeKeys themeKey) {
+  ThemeData getThemeFromKey(MyThemeKeys themeKey) {
     switch (themeKey) {
       case MyThemeKeys.LIGHT:
         return lightTheme;

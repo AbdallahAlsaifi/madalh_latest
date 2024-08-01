@@ -67,12 +67,15 @@ class _LandingPagesState extends State<LandingPages> {
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    '$msg1',
-                    style: TextStyle(
-                        color: constants.landingColor,
-                        fontSize: constants.screenWidth * 0.05),
-                    textDirection: TextDirection.rtl,
+                  child: Center(
+                    child: Text(
+                      '$msg1',
+                      style: TextStyle(
+                          color: constants.landingTextColor,
+                          fontSize: constants.screenWidth * 0.05),
+                      textDirection: TextDirection.rtl,
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 )),
               ],
@@ -138,7 +141,9 @@ class _LandingPagesState extends State<LandingPages> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: constants.screenWidth * 0.2, bottom: constants.screenWidth * 0.2),
+                  margin: EdgeInsets.only(
+                      top: constants.screenWidth * 0.2,
+                      bottom: constants.screenWidth * 0.2),
                   child: SvgPicture.asset(
                     'assets/svg/welcoming2.svg',
                     width: constants.screenWidth * 0.5,
@@ -156,9 +161,10 @@ class _LandingPagesState extends State<LandingPages> {
                   child: Text(
                     '$msg2',
                     style: TextStyle(
-                        color: constants.landingColor,
+                        color: constants.landingTextColor,
                         fontSize: constants.screenWidth * 0.05),
                     textDirection: TextDirection.rtl,
+                    textAlign: TextAlign.center,
                   ),
                 )),
               ],
@@ -224,7 +230,9 @@ class _LandingPagesState extends State<LandingPages> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: constants.screenWidth * 0.2, bottom: constants.screenWidth * 0.2),
+                  margin: EdgeInsets.only(
+                      top: constants.screenWidth * 0.2,
+                      bottom: constants.screenWidth * 0.2),
                   child: SvgPicture.asset(
                     'assets/svg/welcoming3.svg',
                     width: constants.screenWidth * 0.6,
@@ -242,9 +250,10 @@ class _LandingPagesState extends State<LandingPages> {
                   child: Text(
                     '$msg3',
                     style: TextStyle(
-                        color: constants.landingColor,
+                        color: constants.landingTextColor,
                         fontSize: constants.screenWidth * 0.05),
                     textDirection: TextDirection.rtl,
+                    textAlign: TextAlign.center,
                   ),
                 )),
               ],
@@ -291,11 +300,11 @@ class _LandingPagesState extends State<LandingPages> {
       msg3 = snap.data()!['welcomeMsg3'];
     });
   }
-  checkPrefs()async{
-    SharedPreferences prefs =
-    await SharedPreferences.getInstance();
+
+  checkPrefs() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
     final x = prefs.getBool('isLanding');
-    if(x == false){
+    if (x == false) {
       navigateTo(
           MyApp(
             isLanding: false,
@@ -303,6 +312,7 @@ class _LandingPagesState extends State<LandingPages> {
           context);
     }
   }
+
   @override
   void initState() {
     // TODO: implement initState

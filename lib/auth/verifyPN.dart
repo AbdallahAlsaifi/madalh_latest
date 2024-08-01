@@ -154,7 +154,7 @@ class _verifyPhonenumberState extends State<verifyPhonenumber> {
                         }
                       },
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline3,
+                      // style: Theme.of(context).textTheme.headline3,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(1),
@@ -179,7 +179,7 @@ class _verifyPhonenumberState extends State<verifyPhonenumber> {
                         }
                       },
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline3,
+                      // style: Theme.of(context).textTheme.headline3,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(1),
@@ -204,7 +204,7 @@ class _verifyPhonenumberState extends State<verifyPhonenumber> {
                         }
                       },
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline3,
+                      // style: Theme.of(context).textTheme.headline3,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(1),
@@ -229,7 +229,7 @@ class _verifyPhonenumberState extends State<verifyPhonenumber> {
                         }
                       },
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline3,
+                      // style: Theme.of(context).textTheme.headline3,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(1),
@@ -254,7 +254,7 @@ class _verifyPhonenumberState extends State<verifyPhonenumber> {
                         }
                       },
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline3,
+                      // style: Theme.of(context).textTheme.headline3,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(1),
@@ -277,7 +277,7 @@ class _verifyPhonenumberState extends State<verifyPhonenumber> {
                         }
                       },
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline3,
+                      // style: Theme.of(context).textTheme.headline3,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(1),

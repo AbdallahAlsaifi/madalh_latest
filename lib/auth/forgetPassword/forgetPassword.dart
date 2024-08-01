@@ -24,7 +24,6 @@ import 'package:timer_count_down/timer_count_down.dart';
 import '../../main.dart';
 import '../../homePage.dart';
 
-
 class ForgetPassword extends StatefulWidget {
   const ForgetPassword({Key? key}) : super(key: key);
 
@@ -33,11 +32,7 @@ class ForgetPassword extends StatefulWidget {
 }
 
 class _ForgetPasswordState extends State<ForgetPassword> {
-
-
-
   int resendToken1 = 0;
-
 
   TextEditingController pNumber = TextEditingController();
   TextEditingController pin1 = TextEditingController();
@@ -47,12 +42,9 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   TextEditingController pin5 = TextEditingController();
   TextEditingController pin6 = TextEditingController();
 
-
-  final CountdownController _controller =
-  CountdownController(autoStart: true);
+  final CountdownController _controller = CountdownController(autoStart: true);
 
   late PageController pageViewController = PageController(initialPage: 0);
-
 
   bool isLoading = false;
   bool isTimerOn = true;
@@ -78,17 +70,17 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             children: [
               Container(
                 margin: EdgeInsets.all(10),
-                child: Theme.of(context).primaryColor == constants.maleSwatch ? SvgPicture.asset(
-                  'assets/svg/passwordMen.svg',
-                  width: constants
-                      .screenWidth * 0.25,
-                  height: constants
-                      .screenWidth * 0.25,) : SvgPicture.asset(
-                  'assets/svg/passwordWomen.svg',
-                  width: constants
-                      .screenWidth * 0.25,
-                  height: constants
-                      .screenWidth * 0.25,),
+                child: Theme.of(context).primaryColor == constants.maleSwatch
+                    ? SvgPicture.asset(
+                        'assets/svg/passwordMen.svg',
+                        width: constants.screenWidth * 0.25,
+                        height: constants.screenWidth * 0.25,
+                      )
+                    : SvgPicture.asset(
+                        'assets/svg/passwordWomen.svg',
+                        width: constants.screenWidth * 0.25,
+                        height: constants.screenWidth * 0.25,
+                      ),
               ),
             ],
           ),
@@ -121,7 +113,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         }
                       },
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline3,
+                      // style: Theme.of(context).textTheme.headline3,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(1),
@@ -146,7 +138,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         }
                       },
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline3,
+                      // style: Theme.of(context).textTheme.headline3,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(1),
@@ -171,7 +163,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         }
                       },
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline3,
+                      // style: Theme.of(context).textTheme.headline3,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(1),
@@ -196,7 +188,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         }
                       },
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline3,
+                      // style: Theme.of(context).textTheme.headline3,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(1),
@@ -221,7 +213,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         }
                       },
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline3,
+                      // style: Theme.of(context).textTheme.headline3,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(1),
@@ -244,7 +236,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                         }
                       },
                       textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline3,
+                      // style: Theme.of(context).textTheme.headline3,
                       keyboardType: TextInputType.number,
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(1),
@@ -299,8 +291,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                                     verifyId = verificationId;
                                     resendToken1 = resendToken!;
                                   });
-
-
                                 },
                                 codeAutoRetrievalTimeout:
                                     (String verificationId) {},
@@ -336,7 +326,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                   setState(() {
                     isLoading = false;
                   });
-
                 } catch (e) {
                   Fluttertoast.showToast(msg: e.toString().split(']')[1]);
 
@@ -365,17 +354,17 @@ class _ForgetPasswordState extends State<ForgetPassword> {
             children: [
               Container(
                 margin: EdgeInsets.all(10),
-                child: Theme.of(context).primaryColor == constants.maleSwatch ? SvgPicture.asset(
-                  'assets/svg/phoneVerifyMen.svg',
-                  width: constants
-                      .screenWidth * 0.25,
-                  height: constants
-                      .screenWidth * 0.25,) : SvgPicture.asset(
-                  'assets/svg/phoneVerifyWomen.svg',
-                  width: constants
-                      .screenWidth * 0.25,
-                  height: constants
-                      .screenWidth * 0.25,),
+                child: Theme.of(context).primaryColor == constants.maleSwatch
+                    ? SvgPicture.asset(
+                        'assets/svg/phoneVerifyMen.svg',
+                        width: constants.screenWidth * 0.25,
+                        height: constants.screenWidth * 0.25,
+                      )
+                    : SvgPicture.asset(
+                        'assets/svg/phoneVerifyWomen.svg',
+                        width: constants.screenWidth * 0.25,
+                        height: constants.screenWidth * 0.25,
+                      ),
               ),
             ],
           ),
@@ -396,7 +385,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               onChanged: (phone) {
                 setState(() {
                   phoneNumber = phone;
-
                 });
               },
               textInputAction: TextInputAction.done,
@@ -409,48 +397,49 @@ class _ForgetPasswordState extends State<ForgetPassword> {
               onTap: () async {
                 //TODO: Send OTP
 
+                try {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  await FirebaseAuth.instance.verifyPhoneNumber(
+                    timeout: const Duration(seconds: 120),
+                    phoneNumber: phoneNumber!.completeNumber,
+                    verificationCompleted: (PhoneAuthCredential credential) {},
+                    verificationFailed: (FirebaseAuthException e) {
+                      Fluttertoast.showToast(msg: e.message.toString());
+                    },
+                    codeSent: (String verificationId, int? resendToken) {
+                      setState(() {
+                        verifyId = verificationId;
+                        resendToken1 = resendToken!;
+                      });
 
-                  try {
-                    setState(() {
-                      isLoading = true;
-                    });
-                    await FirebaseAuth.instance.verifyPhoneNumber(
-                      timeout: const Duration(seconds: 120),
-                      phoneNumber: phoneNumber!.completeNumber,
-                      verificationCompleted: (PhoneAuthCredential credential) {},
-                      verificationFailed: (FirebaseAuthException e) {
-                        Fluttertoast.showToast(msg: e.message.toString());
-                      },
-                      codeSent: (String verificationId, int? resendToken) {
-                        setState(() {
-                          verifyId = verificationId;
-                          resendToken1 = resendToken!;
-                        });
+                      pageViewController.animateToPage(1,
+                          duration: const Duration(milliseconds: 200),
+                          curve: Curves.easeOutQuart);
+                    },
+                    codeAutoRetrievalTimeout: (String verificationId) {},
+                  );
+                  setState(() {
+                    isLoading = false;
+                  });
+                } catch (e) {
+                  Fluttertoast.showToast(msg: 'الرجاء التأكد من رقم الهاتف');
 
-                        pageViewController.animateToPage(1,
-                            duration: const Duration(milliseconds: 200),
-                            curve: Curves.easeOutQuart);
-                      },
-                      codeAutoRetrievalTimeout: (String verificationId) {},
-                    );
-                    setState(() {
-                      isLoading = false;
-                    });
-                  } catch (e) {
-                    Fluttertoast.showToast(msg: 'الرجاء التأكد من رقم الهاتف');
-
-                    setState(() {
-                      isLoading = false;
-                    });
-                  }
-
+                  setState(() {
+                    isLoading = false;
+                  });
+                }
               },
               child: constants.longButton('المتابعة', context,
-                  buttonColor:  phoneNumber != null ? Theme.of(context).primaryColor : Colors.grey))
+                  buttonColor: phoneNumber != null
+                      ? Theme.of(context).primaryColor
+                      : Colors.grey))
         ],
       ),
     );
   }
+
   Future<bool> checkNumber(PhoneNumber ph, countryCode) async {
     String fpn = ph.number;
     print(fpn);
@@ -480,17 +469,20 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     }
     return result;
   }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: AppBar(title: Text('إستعادة كلمة السر'),),
+        appBar: AppBar(
+          title: Text('إستعادة كلمة السر'),
+        ),
         body: PageView(
           controller: pageViewController,
           physics: const NeverScrollableScrollPhysics(),
-          children: [pNumberField(),OTPVerify()],
+          children: [pNumberField(), OTPVerify()],
         ),
       ),
     );
