@@ -178,90 +178,96 @@ class _WeightSliderState extends State<WeightSlider> {
                           ),
                         ],
                       )
-                    : Container(child: widget.cat.contains('شريك') == true ? Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        constants.smallText(
-                            widget.isKg
-                                ? '${_weight.round()} kg'
-                                : '${_weight.round()} cm',
-                            context,
-                            color: Colors.redAccent),
-                        constants.smallText('  من  ', context,
-                            color: Colors.redAccent),
-                      ],
-                    ),
-                    VerticalWeightSlider(
-                      controller: _controller,
-                      onChanged: (double value) {
-                        setState(() {
-                          _weight = value;
-                        });
-                      },
-                      indicator: Container(
-                        height: 1.5,
-                        width: 200.0,
-                        alignment: Alignment.centerLeft,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        constants.smallText(
-                            widget.isKg
-                                ? '${_weight2.round()} kg'
-                                : '${_weight2.round()} cm',
-                            context,
-                            color: Colors.redAccent),
-                        constants.smallText('  الى  ', context,
-                            color: Colors.redAccent),
-                      ],
-                    ),
-                    VerticalWeightSlider(
-                      controller: WeightSliderController(
-                          minWeight: _weight.toInt()),
-                      onChanged: (double value) {
-                        setState(() {
-                          _weight2 = value;
-                        });
-                      },
-                      indicator: Container(
-                        height: 1.5,
-                        width: 200.0,
-                        alignment: Alignment.centerLeft,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  ],
-                ) : Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    constants.smallText(
-                        widget.isKg
-                            ? '${_weight.round()} kg'
-                            : '${_weight.round()} cm',
-                        context,
-                        color: Colors.redAccent),
-                    VerticalWeightSlider(
-                      controller: _controller,
-                      onChanged: (double value) {
-                        setState(() {
-                          _weight = value;
-                        });
-                      },
-                      indicator: Container(
-                        height: 1.5,
-                        width: 200.0,
-                        alignment: Alignment.centerLeft,
-                        color: Theme.of(context).primaryColor,
-                      ),
-                    ),
-                  ],
-                ),)
+                    : Container(
+                        child: widget.cat.contains('شريك') == true
+                            ? Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      constants.smallText(
+                                          widget.isKg
+                                              ? '${_weight.round()} kg'
+                                              : '${_weight.round()} cm',
+                                          context,
+                                          color: Colors.redAccent),
+                                      constants.smallText('  من  ', context,
+                                          color: Colors.redAccent),
+                                    ],
+                                  ),
+                                  VerticalWeightSlider(
+                                    controller: _controller,
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        _weight = value;
+                                      });
+                                    },
+                                    indicator: Container(
+                                      height: 1.5,
+                                      width: 200.0,
+                                      alignment: Alignment.centerLeft,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      constants.smallText(
+                                          widget.isKg
+                                              ? '${_weight2.round()} kg'
+                                              : '${_weight2.round()} cm',
+                                          context,
+                                          color: Colors.redAccent),
+                                      constants.smallText('  الى  ', context,
+                                          color: Colors.redAccent),
+                                    ],
+                                  ),
+                                  VerticalWeightSlider(
+                                    controller: WeightSliderController(
+                                        minWeight: _weight.toInt()),
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        _weight2 = value;
+                                      });
+                                    },
+                                    indicator: Container(
+                                      height: 1.5,
+                                      width: 200.0,
+                                      alignment: Alignment.centerLeft,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ),
+                                ],
+                              )
+                            : Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  constants.smallText(
+                                      widget.isKg
+                                          ? '${_weight.round()} kg'
+                                          : '${_weight.round()} cm',
+                                      context,
+                                      color: Colors.redAccent),
+                                  VerticalWeightSlider(
+                                    controller: _controller,
+                                    onChanged: (double value) {
+                                      setState(() {
+                                        _weight = value;
+                                      });
+                                    },
+                                    indicator: Container(
+                                      height: 1.5,
+                                      width: 200.0,
+                                      alignment: Alignment.centerLeft,
+                                      color: Theme.of(context).primaryColor,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                      )
               ],
             ),
           ),

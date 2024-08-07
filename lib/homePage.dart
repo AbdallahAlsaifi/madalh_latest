@@ -377,7 +377,8 @@ class _HomePageState extends State<HomePage> {
       gender = snap.data()!['gender'];
       isActive = snap.data()!['isActive'];
     });
-///TODO:UNCOMMENT
+
+    ///TODO:UNCOMMENT
     // if (isActive == true) {
     //   Future.delayed(const Duration(seconds: 1), () {
     //     checkForCoach();

@@ -51,13 +51,11 @@ class _registerScreensState extends State<registerScreens> {
   late PageController pageViewController = PageController(initialPage: 0);
 
   int resendToken1 = 0;
-
+  int b = 0;
   DateTime birthDay = DateTime.now();
   bool isEmail = false;
 
-  int endTime = DateTime
-      .now()
-      .millisecondsSinceEpoch + 1000 * 30;
+  int endTime = DateTime.now().millisecondsSinceEpoch + 1000 * 30;
 
   bool isTimerOn = true;
 
@@ -87,10 +85,7 @@ class _registerScreensState extends State<registerScreens> {
   @override
   void initState() {
     super.initState();
-
-
   }
-
 
   List<Widget> screens = [];
 
@@ -101,9 +96,8 @@ class _registerScreensState extends State<registerScreens> {
     });
   }
 
-
   final CountdownController _controller =
-  new CountdownController(autoStart: true);
+      new CountdownController(autoStart: true);
 
   // Future<void> phoneSignIn() async {
   //   await auth.verifyPhoneNumber(
@@ -119,7 +113,7 @@ class _registerScreensState extends State<registerScreens> {
   Widget selectGender() {
     return Consumer<AppService>(builder: (context, AppServiceData, __) {
       return SingleChildScrollView(
-        child: Column( 
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SizedBox(
@@ -130,21 +124,20 @@ class _registerScreensState extends State<registerScreens> {
               children: [
                 Container(
                   margin: EdgeInsets.all(10),
-                  child: Theme.of(context).primaryColor == constants.maleSwatch ? SvgPicture.asset(
-                    'assets/svg/choiceMen.svg',
-                    width: constants
-                        .screenWidth * 0.25,
-                    height: constants
-                        .screenWidth * 0.25,) : SvgPicture.asset(
-                    'assets/svg/choiceWomen.svg',
-                    width: constants
-                        .screenWidth * 0.25,
-                    height: constants
-                        .screenWidth * 0.25,),
+                  child: Theme.of(context).primaryColor == constants.maleSwatch
+                      ? SvgPicture.asset(
+                          'assets/svg/choiceMen.svg',
+                          width: constants.screenWidth * 0.25,
+                          height: constants.screenWidth * 0.25,
+                        )
+                      : SvgPicture.asset(
+                          'assets/svg/choiceWomen.svg',
+                          width: constants.screenWidth * 0.25,
+                          height: constants.screenWidth * 0.25,
+                        ),
                 ),
               ],
             ),
-
             Container(
                 margin: EdgeInsets.all(10),
                 child: Row(
@@ -213,8 +206,8 @@ class _registerScreensState extends State<registerScreens> {
             GestureDetector(
                 onTap: () {
                   if (isFemale == true || isMale == true) {
-                    pageViewController.animateToPage(
-                        pageIndex + 1, duration: Duration(milliseconds: 150),
+                    pageViewController.animateToPage(pageIndex + 1,
+                        duration: Duration(milliseconds: 150),
                         curve: Curves.bounceIn);
                     setState(() {
                       pageIndex += 1;
@@ -225,25 +218,37 @@ class _registerScreensState extends State<registerScreens> {
                     buttonColor: (isFemale == true || isMale == true)
                         ? constants.azure1
                         : inActiveColor)),
-            Container(height: 10,),
+            Container(
+              height: 10,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-              GestureDetector(onTap: (){navigateTo(TermsAndConditions(), context);},child: Text(' شروط الإستخدام و الخصوصية', style: TextStyle(fontWeight: FontWeight.bold, color: Theme.of(context).primaryColor),)),
-              Container(width: 5,),
-              Text('عند المتابعة اوافق على')
-            ],)
+                GestureDetector(
+                    onTap: () {
+                      navigateTo(TermsAndConditions(), context);
+                    },
+                    child: Text(
+                      ' شروط الإستخدام و الخصوصية',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor),
+                    )),
+                Container(
+                  width: 5,
+                ),
+                Text('عند المتابعة اوافق على')
+              ],
+            )
           ],
         ),
       );
     });
   }
 
-
-
   Widget passwordForm() {
     return SingleChildScrollView(
-      child: Column( 
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
@@ -254,39 +259,42 @@ class _registerScreensState extends State<registerScreens> {
             children: [
               Container(
                 margin: EdgeInsets.all(10),
-                child: Theme.of(context).primaryColor == constants.azure1 ? SvgPicture.asset(
-                  'assets/svg/passwordMen.svg',
-                   width: constants
-                    .screenWidth * 0.25,
-                  height: constants
-                      .screenWidth * 0.25,) : SvgPicture.asset(
-                  'assets/svg/passwordWomen.svg',
-                  width: constants
-                      .screenWidth * 0.25,
-                  height: constants
-                      .screenWidth * 0.25,),
+                child: Theme.of(context).primaryColor == constants.azure1
+                    ? SvgPicture.asset(
+                        'assets/svg/passwordMen.svg',
+                        width: constants.screenWidth * 0.25,
+                        height: constants.screenWidth * 0.25,
+                      )
+                    : SvgPicture.asset(
+                        'assets/svg/passwordWomen.svg',
+                        width: constants.screenWidth * 0.25,
+                        height: constants.screenWidth * 0.25,
+                      ),
               ),
             ],
           ),
           constants.CustomTextField(password, 'كلمة السر', context,
-              textDirection: TextDirection.ltr, hintTextDirection: TextDirection.ltr),
+              textDirection: TextDirection.ltr,
+              hintTextDirection: TextDirection.ltr),
           SizedBox(
             height: 15,
           ),
           constants.CustomTextField(
               passwordConfirmation, 'تاكيد كلمة السر', context,
               onChanged: (vlaue) {
-                if ((vlaue == password.text) && (password.text.length >= 7)) {
-                  setState(() {
-                    isPasswordOk = true;
-                  });
-                } else {
-                  setState(() {
-                    isPasswordOk = false;
-                  });
-                }
-              }, borderColor: isPasswordOk ? constants.azure1 : Colors.red,
-          textDirection: TextDirection.ltr, hintTextDirection: TextDirection.ltr),
+            if ((vlaue == password.text) && (password.text.length >= 7)) {
+              setState(() {
+                isPasswordOk = true;
+              });
+            } else {
+              setState(() {
+                isPasswordOk = false;
+              });
+            }
+          },
+              borderColor: isPasswordOk ? constants.azure1 : Colors.red,
+              textDirection: TextDirection.ltr,
+              hintTextDirection: TextDirection.ltr),
           SizedBox(
             height: 10,
           ),
@@ -298,8 +306,8 @@ class _registerScreensState extends State<registerScreens> {
           GestureDetector(
               onTap: () {
                 if (isPasswordOk == true) {
-                  pageViewController.animateToPage(
-                      pageIndex + 1, duration: Duration(milliseconds: 150),
+                  pageViewController.animateToPage(pageIndex + 1,
+                      duration: Duration(milliseconds: 150),
                       curve: Curves.bounceIn);
                   setState(() {
                     pageIndex += 1;
@@ -326,17 +334,17 @@ class _registerScreensState extends State<registerScreens> {
             children: [
               Container(
                 margin: EdgeInsets.all(10),
-                child: Theme.of(context).primaryColor == constants.maleSwatch ? SvgPicture.asset(
-                  'assets/svg/datePickMen.svg',
-                  width: constants
-                      .screenWidth * 0.25,
-                  height: constants
-                      .screenWidth * 0.25,) : SvgPicture.asset(
-                  'assets/svg/datePickWomen.svg',
-                  width: constants
-                      .screenWidth * 0.25,
-                  height: constants
-                      .screenWidth * 0.25,),
+                child: Theme.of(context).primaryColor == constants.maleSwatch
+                    ? SvgPicture.asset(
+                        'assets/svg/datePickMen.svg',
+                        width: constants.screenWidth * 0.25,
+                        height: constants.screenWidth * 0.25,
+                      )
+                    : SvgPicture.asset(
+                        'assets/svg/datePickWomen.svg',
+                        width: constants.screenWidth * 0.25,
+                        height: constants.screenWidth * 0.25,
+                      ),
               ),
             ],
           ),
@@ -346,32 +354,33 @@ class _registerScreensState extends State<registerScreens> {
             height: constants.screenWidth * 0.05,
           ),
           CalendarDatePicker(
-              initialDate: DateTime(DateTime
-                  .now()
-                  .year - 72),
-              firstDate: DateTime(DateTime
-                  .now()
-                  .year - 72),
-              lastDate: DateTime(DateTime
-                  .now()
-                  .year - 15),
+              initialDate: DateTime(DateTime.now().year - 72),
+              firstDate: DateTime(DateTime.now().year - 72),
+              lastDate: DateTime(DateTime.now().year - 15),
               onDateChanged: (v) {
                 setState(() {
-                  birthDay = v;
-                  isBirthDayOk = true;
+                  b = DateTime.now().year - v.year;
+                  if (b < 18) {
+                    birthDay = v;
+                    isBirthDayOk = false;
+                  } else {
+                    birthDay = v;
+                    isBirthDayOk = true;
+                  }
                 });
               }),
           SizedBox(
             height: constants.screenWidth * 0.05,
           ),
-          constants.smallText(
-              'عمرك الان ${DateTime
-                  .now()
-                  .year - birthDay.year}', context,
-              color: constants.azure1),
+          b < 18
+              ? constants.smallText('عمرك اقل من 18', context,
+                  color: Color.fromARGB(255, 248, 82, 104))
+              : constants.smallText(
+                  'عمرك الان ${DateTime.now().year - birthDay.year}', context,
+                  color: constants.azure1),
           GestureDetector(
               onTap: () async {
-                if (isBirthDayOk==true) {
+                if (isBirthDayOk == true) {
                   try {
                     setState(() {
                       isLoading = true;
@@ -382,12 +391,14 @@ class _registerScreensState extends State<registerScreens> {
                         context: context,
                         email: isEmail == true
                             ? usernameOrEmail.text.trim().toLowerCase()
-                            : '${usernameOrEmail.text.trim()
-                            .toLowerCase()}@user.madalh'
-                            .toLowerCase(),
+                            : '${usernameOrEmail.text.trim().toLowerCase()}@user.madalh'
+                                .toLowerCase(),
                         password: password.text.trim(),
                         username: isEmail == true
-                            ? usernameOrEmail.text.trim().toLowerCase().split('@')[0]
+                            ? usernameOrEmail.text
+                                .trim()
+                                .toLowerCase()
+                                .split('@')[0]
                             : usernameOrEmail.text.trim().toLowerCase(),
                         pNumber: ' ',
                         gender: gender.toLowerCase(),
@@ -397,7 +408,6 @@ class _registerScreensState extends State<registerScreens> {
                     setState(() {
                       isLoading = false;
                     });
-
                   } on FirebaseAuthException catch (e) {
                     print(e);
                     Fluttertoast.showToast(msg: e.toString());
@@ -415,8 +425,6 @@ class _registerScreensState extends State<registerScreens> {
     );
   }
 
-
-
   bool isValidEmailOrUsername(String input) {
     // Regular expression pattern to validate email addresses
     final emailRegex = RegExp(r'^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+');
@@ -431,76 +439,74 @@ class _registerScreensState extends State<registerScreens> {
       return false;
     }
   }
+
   Widget emailOrUsername() {
     return SingleChildScrollView(
-      child: Consumer<AppService>(
-        builder: (context, data, _) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: constants.screenHeight * 0.08,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.all(10),
-                    child: Theme.of(context).primaryColor == constants.maleSwatch ? SvgPicture.asset(
-                      'assets/svg/fieldMen.svg',
-                      width: constants
-                          .screenWidth * 0.25,
-                      height: constants
-                          .screenWidth * 0.25,) : SvgPicture.asset(
-                      'assets/svg/fieldWomen.svg',
-                      width: constants
-                          .screenWidth * 0.25,
-                      height: constants
-                          .screenWidth * 0.25,),
-                  ),
-                ],
-              ),
-              constants.smallText('الإيميل او اسم مستخدم', context, color: Colors.redAccent),
-              constants.CustomTextField(
-                usernameOrEmail,
-                'الإيميل او اسم مستخدم',
-                context,
+      child: Consumer<AppService>(builder: (context, data, _) {
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              height: constants.screenHeight * 0.08,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child: Theme.of(context).primaryColor == constants.maleSwatch
+                      ? SvgPicture.asset(
+                          'assets/svg/fieldMen.svg',
+                          width: constants.screenWidth * 0.25,
+                          height: constants.screenWidth * 0.25,
+                        )
+                      : SvgPicture.asset(
+                          'assets/svg/fieldWomen.svg',
+                          width: constants.screenWidth * 0.25,
+                          height: constants.screenWidth * 0.25,
+                        ),
+                ),
+              ],
+            ),
+            constants.smallText('الإيميل او اسم مستخدم', context,
+                color: Colors.redAccent),
+            constants.CustomTextField(
+                usernameOrEmail, 'الإيميل او اسم مستخدم', context,
                 obsecure: false,
-                  textDirection: TextDirection.ltr, hintTextDirection: TextDirection.ltr
-              ),
-
-              SizedBox(
-                height: constants.screenWidth * 0.3,
-              ),
-              GestureDetector(
-                  onTap: () async{
-                    bool x = await data.checkUserName(usernameOrEmail.text);
-                    if (x == true) {
-                      bool xx = isValidEmailOrUsername(usernameOrEmail.text);
-                      if(xx == true){
-                        setState(() {
-                          isEmail = EmailValidator.validate(usernameOrEmail.text);
-                        });
-                        pageViewController.animateToPage(
-                            pageIndex + 1, duration: Duration(milliseconds: 150),
-                            curve: Curves.bounceIn);
-                        setState(() {
-                          pageIndex += 1;
-                        });
-                      }else{
-                        Fluttertoast.showToast(msg: 'لا يمكنك إستخدام اسم المستخدم او الايمل');
-                      }
-                    }else{
-                      Fluttertoast.showToast(msg: 'لا يمكنك إستخدام اسم المستخدم او الايمل');
+                textDirection: TextDirection.ltr,
+                hintTextDirection: TextDirection.ltr),
+            SizedBox(
+              height: constants.screenWidth * 0.3,
+            ),
+            GestureDetector(
+                onTap: () async {
+                  bool x = await data.checkUserName(usernameOrEmail.text);
+                  if (x == true) {
+                    bool xx = isValidEmailOrUsername(usernameOrEmail.text);
+                    if (xx == true) {
+                      setState(() {
+                        isEmail = EmailValidator.validate(usernameOrEmail.text);
+                      });
+                      pageViewController.animateToPage(pageIndex + 1,
+                          duration: Duration(milliseconds: 150),
+                          curve: Curves.bounceIn);
+                      setState(() {
+                        pageIndex += 1;
+                      });
+                    } else {
+                      Fluttertoast.showToast(
+                          msg: 'لا يمكنك إستخدام اسم المستخدم او الايمل');
                     }
-                  },
-                  child: constants.longButton('المتابعة', context,
-                      buttonColor:
-                      Theme.of(context).primaryColor))
-            ],
-          );
-        }
-      ),
+                  } else {
+                    Fluttertoast.showToast(
+                        msg: 'لا يمكنك إستخدام اسم المستخدم او الايمل');
+                  }
+                },
+                child: constants.longButton('المتابعة', context,
+                    buttonColor: Theme.of(context).primaryColor))
+          ],
+        );
+      }),
     );
   }
 
@@ -514,23 +520,26 @@ class _registerScreensState extends State<registerScreens> {
             children: [
               Container(
                 margin: EdgeInsets.all(10),
-                child: Theme.of(context).primaryColor == constants.maleSwatch ? SvgPicture.asset(
-                  'assets/svg/fieldMen.svg',
-                  width: constants
-                      .screenWidth * 0.25,
-                  height: constants
-                      .screenWidth * 0.25,) : SvgPicture.asset(
-                  'assets/svg/fieldWomen.svg',
-                  width: constants
-                      .screenWidth * 0.25,
-                  height: constants
-                      .screenWidth * 0.25,),
+                child: Theme.of(context).primaryColor == constants.maleSwatch
+                    ? SvgPicture.asset(
+                        'assets/svg/fieldMen.svg',
+                        width: constants.screenWidth * 0.25,
+                        height: constants.screenWidth * 0.25,
+                      )
+                    : SvgPicture.asset(
+                        'assets/svg/fieldWomen.svg',
+                        width: constants.screenWidth * 0.25,
+                        height: constants.screenWidth * 0.25,
+                      ),
               ),
             ],
           ),
-          Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            constants.smallText('إختياري', context, color: Colors.redAccent),
-          ],),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              constants.smallText('إختياري', context, color: Colors.redAccent),
+            ],
+          ),
           constants.CustomTextField(
               fname,
               'الإسم الأول',
@@ -569,8 +578,8 @@ class _registerScreensState extends State<registerScreens> {
           ),
           GestureDetector(
               onTap: () {
-                pageViewController.animateToPage(
-                    pageIndex + 1, duration: Duration(milliseconds: 150),
+                pageViewController.animateToPage(pageIndex + 1,
+                    duration: Duration(milliseconds: 150),
                     curve: Curves.bounceIn);
                 setState(() {
                   pageIndex += 1;
@@ -582,8 +591,6 @@ class _registerScreensState extends State<registerScreens> {
       ),
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -600,36 +607,32 @@ class _registerScreensState extends State<registerScreens> {
           child: WillPopScope(
             onWillPop: () async => false,
             child: Scaffold(
-
               resizeToAvoidBottomInset: false,
               appBar: AppBar(
                 automaticallyImplyLeading: false,
                 leading: BackButton(
                   onPressed: () {
-
                     if (pageIndex == 0) {
                       navigateTo(LoginScreen(), context);
                     } else {
-                      pageViewController.animateToPage(
-                          pageIndex - 1, duration: Duration(milliseconds: 150),
+                      pageViewController.animateToPage(pageIndex - 1,
+                          duration: Duration(milliseconds: 150),
                           curve: Curves.bounceIn);
                       setState(() {
                         pageIndex -= 1;
                       });
                     }
                   },
-                  color: Theme
-                      .of(context)
-                      .primaryColor,
+                  color: Theme.of(context).primaryColor,
                 ),
                 elevation: 0,
                 backgroundColor: Colors.transparent,
                 title: SvgPicture.asset(
                   'assets/svg/AraicName.svg',
-                  width: constants
-                      .screenWidth * 0.1,
-                  height: constants
-                      .screenWidth * 0.1,color: Theme.of(context).primaryColor,),
+                  width: constants.screenWidth * 0.1,
+                  height: constants.screenWidth * 0.1,
+                  color: Theme.of(context).primaryColor,
+                ),
                 centerTitle: true,
               ),
               body: PageView(
@@ -637,12 +640,12 @@ class _registerScreensState extends State<registerScreens> {
                 controller: pageViewController,
                 scrollDirection: Axis.horizontal,
                 // physics: const NeverScrollableScrollPhysics(),
-                children: [selectGender(),
+                children: [
+                  selectGender(),
                   emailOrUsername(),
                   passwordForm(),
                   FandLName(),
                   birthDayChooser(context),
-
                 ],
               ),
             ),

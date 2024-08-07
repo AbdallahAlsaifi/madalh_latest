@@ -118,18 +118,20 @@ class _QuestionReuseableState extends State<QuestionReuseable> {
             controller: controllerPages,
             cat: category,
             infoQ: list[i]['infoBadge'] ?? '',
-            questionId: list[i].id,          ),
+            questionId: list[i].id,
+          ),
         );
       } else if (list[i]['type'] == 4) {
         questionScreens.add(FQuestion(
-            isMainAnswer: widget.isMainAnswer,
-            batch: batch,
-            question: list[i]['question'],
-            controller: controllerPages,
-            type: list[i]['type'],
-            cat: category,
-            infoQ: list[i]['infoBadge'] ?? '',
-          questionId: list[i].id,));
+          isMainAnswer: widget.isMainAnswer,
+          batch: batch,
+          question: list[i]['question'],
+          controller: controllerPages,
+          type: list[i]['type'],
+          cat: category,
+          infoQ: list[i]['infoBadge'] ?? '',
+          questionId: list[i].id,
+        ));
       } else if (list[i]['type'] == 5) {
         questionScreens.add(IMCQ(
           isMainAnswer: widget.isMainAnswer,
@@ -154,7 +156,8 @@ class _QuestionReuseableState extends State<QuestionReuseable> {
           type: list[i]['type'],
           controller: controllerPages,
           infoQ: list[i]['infoBadge'] ?? '',
-          questionId: list[i].id,          cat: category,
+          questionId: list[i].id,
+          cat: category,
         ));
       } else if (list[i]['type'] == 7) {
         questionScreens.add(HMCQ(
@@ -167,7 +170,8 @@ class _QuestionReuseableState extends State<QuestionReuseable> {
           cat: category,
           infoQ: list[i]['infoBadge'] ?? '',
           multiAnswer: list[i]['isMultiple'],
-          questionId: list[i].id,        ));
+          questionId: list[i].id,
+        ));
       }
     }
     setState(() {
@@ -209,7 +213,8 @@ class _QuestionReuseableState extends State<QuestionReuseable> {
           isMainAnswer: widget.isMainAnswer,
           batch: batch,
           question: list[i]['question'],
-          questionId: list[i].id,          type: list[i]['type'],
+          questionId: list[i].id,
+          type: list[i]['type'],
           cat: list[i]['category'],
           infoQ: list[i]['infoBadge'] ?? '',
           isKg: false,
@@ -221,7 +226,8 @@ class _QuestionReuseableState extends State<QuestionReuseable> {
           isMainAnswer: widget.isMainAnswer,
           question: list[i]['question'],
           type: list[i]['type'],
-          questionId: list[i].id,          controller: controllerPages,
+          questionId: list[i].id,
+          controller: controllerPages,
           cat: list[i]['category'],
           infoQ: list[i]['infoBadge'] ?? '',
           isKg: true,
@@ -242,39 +248,42 @@ class _QuestionReuseableState extends State<QuestionReuseable> {
         ));
       } else if (list[i]['type'] == 3) {
         questionScreens.add(DQuestion(
-            isMainAnswer: widget.isMainAnswer,
-            batch: batch,
-            question: list[i]['question'],
-            type: list[i]['type'],
-            controller: controllerPages,
-            infoQ: list[i]['infoBadge'] ?? '',
-            cat: list[i]['category'],
-          questionId: list[i].id,));
+          isMainAnswer: widget.isMainAnswer,
+          batch: batch,
+          question: list[i]['question'],
+          type: list[i]['type'],
+          controller: controllerPages,
+          infoQ: list[i]['infoBadge'] ?? '',
+          cat: list[i]['category'],
+          questionId: list[i].id,
+        ));
       } else if (list[i]['type'] == 4) {
         questionScreens.add(FQuestion(
-            isMainAnswer: widget.isMainAnswer,
-            batch: batch,
-            question: list[i]['question'],
-            controller: controllerPages,
-            type: list[i]['type'],
-            cat: list[i]['category'],
-            infoQ: list[i]['infoBadge'] ?? '',
-          questionId: list[i].id,));
-      } else if (list[i]['type'] == 5) {
-        questionScreens.add(IMCQ(
+          isMainAnswer: widget.isMainAnswer,
           batch: batch,
-          answers: list[i]['availableAnswer'],
-          minAnswers: list[i]['minAnswers'],
-          infoQ: list[i]['infoBadge'] ?? '',
           question: list[i]['question'],
           controller: controllerPages,
-          isMainAnswer: widget.isMainAnswer,
-          multiAnswer: list[i]['isMultiple'],
           type: list[i]['type'],
-          questionId: list[i].id,
-          ImageLinks: list[i]['images'],
           cat: list[i]['category'],
-        ),
+          infoQ: list[i]['infoBadge'] ?? '',
+          questionId: list[i].id,
+        ));
+      } else if (list[i]['type'] == 5) {
+        questionScreens.add(
+          IMCQ(
+            batch: batch,
+            answers: list[i]['availableAnswer'],
+            minAnswers: list[i]['minAnswers'],
+            infoQ: list[i]['infoBadge'] ?? '',
+            question: list[i]['question'],
+            controller: controllerPages,
+            isMainAnswer: widget.isMainAnswer,
+            multiAnswer: list[i]['isMultiple'],
+            type: list[i]['type'],
+            questionId: list[i].id,
+            ImageLinks: list[i]['images'],
+            cat: list[i]['category'],
+          ),
         );
       } else if (list[i]['type'] == 6) {
         questionScreens.add(LQuestion(
@@ -299,7 +308,8 @@ class _QuestionReuseableState extends State<QuestionReuseable> {
           infoQ: list[i]['infoBadge'] ?? '',
           cat: list[i]['category'],
           multiAnswer: list[i]['isMultiple'],
-          questionId: list[i].id,        ));
+          questionId: list[i].id,
+        ));
       }
     }
     setState(() {

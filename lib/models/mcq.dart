@@ -24,55 +24,54 @@ class MCQ extends StatefulWidget {
   final minAnswers;
   final WriteBatch batch;
 
-  const MCQ(
-      {Key? key,
-        required this.answers,
-        required this.question,
-        required this.multiAnswer,
-        required this.cat,
-        required this.questionId,
-        required this.infoQ,
-        required this.type,
-        required this.controller,
-        required this.batch,
-        required this.isMainAnswer,
-        required this.minAnswers,
-      })
-      : super(key: key);
+  const MCQ({
+    Key? key,
+    required this.answers,
+    required this.question,
+    required this.multiAnswer,
+    required this.cat,
+    required this.questionId,
+    required this.infoQ,
+    required this.type,
+    required this.controller,
+    required this.batch,
+    required this.isMainAnswer,
+    required this.minAnswers,
+  }) : super(key: key);
 
   @override
   State<MCQ> createState() => _MCQState();
 }
 
-class _MCQState extends State<MCQ> with TickerProviderStateMixin{
+class _MCQState extends State<MCQ> with TickerProviderStateMixin {
   List<MCAnswers> answers = [];
 
   late MCQuestion question;
-@override
+  @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-
   }
+
   @override
   void initState() {
     // TODO: implement initState
     answers = List.generate(
       widget.answers.length,
-          (index) => MCAnswers(AnswerText: widget.answers[index]),
+      (index) => MCAnswers(AnswerText: widget.answers[index]),
     );
     question = MCQuestion(question: widget.question, answers: answers);
-    Future.delayed(Duration(milliseconds: 150), (){
+    Future.delayed(Duration(milliseconds: 150), () {
       _animationController.forward();
-
     });
     super.initState();
   }
+
   late AnimationController _animationController = AnimationController(
     vsync: this,
     duration: Duration(milliseconds: 500),
   );
-  late Animation <Offset> _animation = Tween <Offset>(
+  late Animation<Offset> _animation = Tween<Offset>(
     begin: Offset(9.0, 0.0),
     end: Offset.zero,
   ).animate(CurvedAnimation(
@@ -82,6 +81,7 @@ class _MCQState extends State<MCQ> with TickerProviderStateMixin{
   int countTrue(List list) {
     return list.where((item) => item.isChosen == true).length;
   }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -93,77 +93,89 @@ class _MCQState extends State<MCQ> with TickerProviderStateMixin{
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Consumer<AppService>(
-                  builder: (_, appVV, __) {
-                    return GestureDetector(
-                      onTap: () {
+                Consumer<AppService>(builder: (_, appVV, __) {
+                  return GestureDetector(
+                    onTap: () {
+                      if (countTrue(answers) >= widget.minAnswers) {
+                        if (value.index == value.questionScreens1.length - 1) {
+                          List<String> ans = answers
+                              .where((item) => item.isChosen == true)
+                              .map((item) => item.AnswerText)
+                              .toList();
+                          value.addAnswer(
+                              ans, question.question, widget.questionId,
+                              category: widget.cat, type: widget.type);
+                          widget.batch.set(
+                              constants.firestore
+                                  .collection('answers')
+                                  .doc(constants.auth.currentUser!.uid)
+                                  .collection('answers')
+                                  .doc(widget.questionId),
+                              {
+                                "question": question.question,
+                                "answer": ans,
+                                "uid": widget.questionId,
+                                'date': DateTime.now(),
+                                "Images": [],
+                                "cat": widget.cat,
+                                'type': widget.type,
+                                "status": 1,
+                              },
+                              SetOptions(merge: true));
 
-                        if(countTrue(answers) >= widget.minAnswers){
-                          if (value.index == value.questionScreens1.length - 1) {
-                            List<String> ans = answers
-                                .where((item) => item.isChosen == true)
-                                .map((item) => item.AnswerText)
-                                .toList();
-                            value.addAnswer(
-                                ans, question.question, widget.questionId,category: widget.cat,type: widget.type);
-                            widget.batch.set(constants.firestore.collection('answers').doc(constants.auth.currentUser!.uid).collection('answers')
-                                .doc(widget.questionId), {
-                              "question": question.question,
-                              "answer": ans,
-                              "uid": widget.questionId,
-                              'date': DateTime.now(),
-                              "Images":[],
-                              "cat":widget.cat,
-                              'type':widget.type,
-                              "status":1,
-                            }, SetOptions(merge: true));
-
-                            try {
-                              constants.commitChanges(widget.batch);
-                              if(widget.isMainAnswer == true){
-                                constants.updateCategory(widget.cat);
-                              }
-                              Navigator.pop(context);
-                              // appVV.setPageController(1, Duration.zero);
-                              navigateTo(HomePage(showCongrats: true,), context);
-                            } catch (e) {
-
+                          try {
+                            constants.commitChanges(widget.batch);
+                            if (widget.isMainAnswer == true) {
+                              constants.updateCategory(widget.cat);
                             }
+                            Navigator.pop(context);
+                            // appVV.setPageController(1, Duration.zero);
+                            navigateTo(
+                                HomePage(
+                                  showCongrats: true,
+                                ),
+                                context);
+                          } catch (e) {}
+                        } else {
+                          List<String> ans = answers
+                              .where((item) => item.isChosen == true)
+                              .map((item) => item.AnswerText)
+                              .toList();
+                          value.addAnswer(
+                              ans, question.question, widget.questionId,
+                              category: widget.cat, type: widget.type);
+                          widget.batch.set(
+                              constants.firestore
+                                  .collection('answers')
+                                  .doc(constants.auth.currentUser!.uid)
+                                  .collection('answers')
+                                  .doc(widget.questionId),
+                              {
+                                "question": question.question,
+                                "answer": ans,
+                                "uid": widget.questionId,
+                                'date': DateTime.now(),
+                                "Images": [],
+                                "cat": widget.cat,
+                                'type': widget.type,
+                                "status": 1,
+                              },
+                              SetOptions(merge: true));
 
-                          } else {
-                            List<String> ans = answers
-                                .where((item) => item.isChosen == true)
-                                .map((item) => item.AnswerText)
-                                .toList();
-                            value.addAnswer(
-                                ans, question.question, widget.questionId,category: widget.cat,type: widget.type);
-                            widget.batch.set(constants.firestore.collection('answers').doc(constants.auth.currentUser!.uid).collection('answers')
-                                .doc(widget.questionId), {
-                              "question": question.question,
-                              "answer": ans,
-                              "uid": widget.questionId,
-                              'date': DateTime.now(),
-                              "Images":[],
-                              "cat":widget.cat,
-                              'type':widget.type,
-                              "status":1,
-                            }, SetOptions(merge: true));
+                          widget.controller.nextPage(
+                              duration: Duration(milliseconds: 50),
+                              curve: Curves.easeInOut);
 
-                            widget.controller.nextPage(
-                                duration: Duration(milliseconds: 50),
-                                curve: Curves.easeInOut);
-
-                            value.getScreensList();
-                          }
+                          value.getScreensList();
                         }
-                      },
-                      child: constants.longButton('المتابعة', context,
-                          buttonColor: countTrue(answers) < widget.minAnswers
-                              ? Colors.white
-                              : Theme.of(context).primaryColor),
-                    );
-                  }
-                ),
+                      }
+                    },
+                    child: constants.longButton('المتابعة', context,
+                        buttonColor: countTrue(answers) < widget.minAnswers
+                            ? Colors.white
+                            : Theme.of(context).primaryColor),
+                  );
+                }),
               ],
             ),
           ),
@@ -178,7 +190,13 @@ class _MCQState extends State<MCQ> with TickerProviderStateMixin{
                   SizedBox(
                     height: constants.screenHeight * 0.10,
                   ),
-                  Wrap(children: [ widget.infoQ.length > 3 ? constants.UserInfo(text: widget.infoQ) : Container()],),
+                  Wrap(
+                    children: [
+                      widget.infoQ.length > 3
+                          ? constants.UserInfo(text: widget.infoQ)
+                          : Container()
+                    ],
+                  ),
                   SizedBox(
                     height: constants.screenHeight * 0.05,
                   ),
@@ -188,28 +206,103 @@ class _MCQState extends State<MCQ> with TickerProviderStateMixin{
                     children: List.generate(question.answers.length, (index) {
                       return GestureDetector(
                         onTap: () {
-                          if(question.answers[index].isChosen == true){
-                            setState(() {
-                              question.answers[index].isChosen = false;
-                            });
-                          }else{
-                            {
-                              setState(() {
-                                question.answers[index].isChosen = true;
-                              });
-                            }
-                          }
+                          // if (question.answers[index].isChosen == true) {
+                          //   // setState(() {
+                          //   //   question.answers[index].isChosen = false;
+                          //   // });
+                          // } else {
+                          //   // {
+                          //   //   setState(() {
+                          //   //     question.answers[index].isChosen = true;
+                          //   //   });
+                          //   // }
+                          // }
+                          // if (countTrue(answers) >= widget.minAnswers) {
+                          if (value.index ==
+                              value.questionScreens1.length - 1) {
+                            List<String> ans = answers
+                                .where((item) => item.isChosen == true)
+                                .map((item) => item.AnswerText)
+                                .toList();
+                            value.addAnswer(
+                                ans, question.question, widget.questionId,
+                                category: widget.cat, type: widget.type);
+                            widget.batch.set(
+                                constants.firestore
+                                    .collection('answers')
+                                    .doc(constants.auth.currentUser!.uid)
+                                    .collection('answers')
+                                    .doc(widget.questionId),
+                                {
+                                  "question": question.question,
+                                  "answer": ans,
+                                  "uid": widget.questionId,
+                                  'date': DateTime.now(),
+                                  "Images": [],
+                                  "cat": widget.cat,
+                                  'type': widget.type,
+                                  "status": 1,
+                                },
+                                SetOptions(merge: true));
 
-                          if (widget.multiAnswer == false) {
-                            for (int i = 0;
-                            i <= question.answers.length - 1;
-                            i++) {
-                              if (question.answers.elementAt(i) !=
-                                  question.answers[index]) {
-                                question.answers[i].isChosen = false;
+                            try {
+                              constants.commitChanges(widget.batch);
+                              if (widget.isMainAnswer == true) {
+                                constants.updateCategory(widget.cat);
                               }
-                            }
+                              Navigator.pop(context);
+                              // appVV.setPageController(1, Duration.zero);
+                              navigateTo(
+                                  HomePage(
+                                    showCongrats: true,
+                                  ),
+                                  context);
+                            } catch (e) {}
+                          } else {
+                            List<String> ans = answers
+                                .where((item) => item.isChosen == true)
+                                .map((item) => item.AnswerText)
+                                .toList();
+                            value.addAnswer(
+                                ans, question.question, widget.questionId,
+                                category: widget.cat, type: widget.type);
+                            widget.batch.set(
+                                constants.firestore
+                                    .collection('answers')
+                                    .doc(constants.auth.currentUser!.uid)
+                                    .collection('answers')
+                                    .doc(widget.questionId),
+                                {
+                                  "question": question.question,
+                                  "answer": ans,
+                                  "uid": widget.questionId,
+                                  'date': DateTime.now(),
+                                  "Images": [],
+                                  "cat": widget.cat,
+                                  'type': widget.type,
+                                  "status": 1,
+                                },
+                                SetOptions(merge: true));
+
+                            widget.controller.nextPage(
+                                duration: Duration(milliseconds: 50),
+                                curve: Curves.easeInOut);
+
+                            value.getScreensList();
                           }
+                          // } else {
+                          //   debugPrint('hi>>>>>>>>>>>>>>>>>>>>>>>>>');
+                          // }
+                          // if (widget.multiAnswer == false) {
+                          //   for (int i = 0;
+                          //       i <= question.answers.length - 1;
+                          //       i++) {
+                          //     if (question.answers.elementAt(i) !=
+                          //         question.answers[index]) {
+                          //       question.answers[i].isChosen = false;
+                          //     }
+                          //   }
+                          // }
                         },
                         child: SlideTransition(
                           position: _animation,
@@ -219,9 +312,9 @@ class _MCQState extends State<MCQ> with TickerProviderStateMixin{
                               context,
                             ),
                             backgroundColor:
-                            question.answers[index].isChosen == true
-                                ? Theme.of(context).primaryColor
-                                : Colors.grey,
+                                question.answers[index].isChosen == true
+                                    ? Theme.of(context).primaryColor
+                                    : Colors.grey,
                           ),
                         ),
                       );

@@ -46,7 +46,6 @@ import 'models/hoppiesmcq.dart';
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
   'high_importance_channel', // id
   'High Importance Notifications',
-
   // description
   importance: Importance.max,
   playSound: true,

@@ -108,6 +108,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                SizedBox(
+                                  height: 200,
+                                ),
                                 Container(
                                   margin: EdgeInsets.only(right: 10),
                                   child: SvgPicture.asset(
@@ -140,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: 190,
+                        height: 100,
                       ),
                       Container(
                         height: 400,
@@ -161,14 +164,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    const Spacer(),
+                                    // const Spacer(),
                                     // Center(
                                     //     child: TextUtil(
                                     //   text: "تسجيل الدخول",
                                     //   weight: true,
                                     //   size: 30,
                                     // )),
-                                    const Spacer(),
+                                    // const Spacer(),
                                     // TextUtil(
                                     //   text: "إسم المسخدم او الإيميل",
                                     // ),
