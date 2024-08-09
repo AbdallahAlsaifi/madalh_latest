@@ -91,3 +91,9 @@ flutter:
     - assets/images/
     - assets/svg/
     - assets/videos/
+  fonts:
+    - family: Schyler
+      fonts:
+        - asset: assets/fonts/ArefRuqaa-Bold.ttf
+        - asset: assets/fonts/ArefRuqaa-Regular.ttf
+          style: italic

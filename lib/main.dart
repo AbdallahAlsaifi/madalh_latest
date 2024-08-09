@@ -169,7 +169,7 @@ class MyApp extends StatelessWidget {
                   title: 'MaDalah',
                   theme: ThemeData(
                       // primaryColor: AppServiceData.primaryColor,
-
+                      fontFamily: 'Aref Ruqaa',
                       useMaterial3: false,
                       dialogBackgroundColor: Colors.white,
                       primarySwatch: AppServiceData.systemThemeColor,

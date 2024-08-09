@@ -143,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ],
                       ),
                       SizedBox(
-                        height: 100,
+                        height: 10,
                       ),
                       Container(
                         height: 400,
@@ -304,7 +304,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           )),
                                     ),
                                     const Spacer(),
-                                    Spacer(),
+                                    // Spacer(),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
