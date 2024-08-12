@@ -2,7 +2,9 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_rating_stars/flutter_rating_stars.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:icons_plus/icons_plus.dart';
@@ -397,15 +399,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ],
                                 ),
                               ),
-                              GridView.builder(
+                              ListView.builder(
                                 physics: NeverScrollableScrollPhysics(),
                                 itemCount: questionsCategories.length,
                                 shrinkWrap: true,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 15,
-                                        mainAxisSpacing: 15),
                                 itemBuilder: (BuildContext context, int index) {
                                   // Calculate row and column index based on the index
                                   int row = index ~/ 3;
@@ -430,25 +427,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                 index]),
                                               ));
                                         },
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.all(10),
-                                              padding: EdgeInsets.all(5),
-                                              width: 70,
-                                              height: 70,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(3),
-                                                  color: constants.greyC),
-                                              child: Icon(Icons
-                                                  .sentiment_very_dissatisfied),
-                                            ),
-                                            constants.smallText(
-                                                '${questionsCategories[index]}',
-                                                context,
-                                                color: Colors.red)
-                                          ],
+                                        child: ListTile(
+                                          title: Center(
+                                              child: Text(
+                                                  questionsCategories[index])),
+                                          leading: Icon(Icons.arrow_back_ios),
+                                          trailing: Icon(Icons
+                                              .sentiment_very_dissatisfied),
                                         ),
                                       );
                                     },
@@ -479,15 +464,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   ],
                                 ),
                               ),
-                              GridView.builder(
+                              ListView.builder(
                                 physics: NeverScrollableScrollPhysics(),
                                 itemCount: pquestionsCategories.length,
                                 shrinkWrap: true,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 15,
-                                        mainAxisSpacing: 15),
                                 itemBuilder: (BuildContext context, int index) {
                                   // Calculate row and column index based on the index
                                   int row = index ~/ 3;
@@ -514,25 +494,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                                 index]),
                                               ));
                                         },
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              margin: EdgeInsets.all(10),
-                                              padding: EdgeInsets.all(5),
-                                              width: 70,
-                                              height: 70,
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(3),
-                                                  color: constants.greyC),
-                                              child: Icon(Icons
-                                                  .sentiment_very_dissatisfied),
-                                            ),
-                                            constants.smallText(
-                                                '${pquestionsCategories[index]}',
-                                                context,
-                                                color: Colors.red)
-                                          ],
+                                        child: ListTile(
+                                          title: Center(
+                                              child: Text(
+                                                  pquestionsCategories[index])),
+                                          leading: Icon(Icons.arrow_back_ios),
+                                          trailing: Icon(Icons
+                                              .sentiment_very_dissatisfied),
                                         ),
                                       );
                                     },

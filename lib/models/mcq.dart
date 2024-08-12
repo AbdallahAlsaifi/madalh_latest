@@ -180,7 +180,7 @@ class _MCQState extends State<MCQ> with TickerProviderStateMixin {
             ),
           ),
           body: Container(
-            padding: EdgeInsets.all(10),
+            // padding: EdgeInsets.all(10),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
