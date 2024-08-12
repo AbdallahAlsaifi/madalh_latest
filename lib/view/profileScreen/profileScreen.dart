@@ -410,7 +410,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   // Calculate row and column index based on the index
                                   int row = index ~/ 3;
                                   int col = index % 3;
-
                                   // Return a small square widget
                                   return Consumer<QController>(
                                     builder: (BuildContext context, value,
@@ -418,7 +417,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       return GestureDetector(
                                         onTap: () {
                                           //TODO: what happens after clicking
-
                                           QController().setCategory(
                                               questionsCategories[index]);
                                           Navigator.push(
