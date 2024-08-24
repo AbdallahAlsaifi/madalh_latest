@@ -14,6 +14,7 @@ class FirebaseCustomAuth {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Future<bool> signUpUser({
+    required String promocode,
     required String fname,
     required String lname,
     required String email,
@@ -36,6 +37,7 @@ class FirebaseCustomAuth {
           .doc(FirebaseAuth.instance.currentUser!.uid);
       model.UserModel user = model.UserModel(
         uid: FirebaseAuth.instance.currentUser!.uid,
+        promocode: promocode,
         fname: fname.toLowerCase().trim(),
         lname: lname.toLowerCase().trim(),
         email: email.trim(),
@@ -117,8 +119,7 @@ class FirebaseCustomAuth {
 //       codeAutoRetrievalTimeout: codeAutoRetrievalTimeout)
 // }
 
-  Future<void> SignIn(
-      emailOrUsername, password) async {
+  Future<void> SignIn(emailOrUsername, password) async {
     try {
       await _auth.signInWithEmailAndPassword(
           email: emailOrUsername, password: password);
@@ -129,13 +130,9 @@ class FirebaseCustomAuth {
 
   Future<void> SignOut() async {
     try {
-
       await _auth.signOut();
-
     } on FirebaseAuthException catch (e) {
-
       Fluttertoast.showToast(msg: e.toString());
-
     }
   }
 }

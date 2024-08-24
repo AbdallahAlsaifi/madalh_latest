@@ -93,249 +93,246 @@ class _LoginScreenState extends State<LoginScreen> {
                 body: Container(
                   height: double.infinity,
                   width: double.infinity,
-                  alignment: Alignment.center,
-                  child: Column(
-                    children: [
-                      Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          GestureDetector(
-                            onDoubleTap: () {
-                              chewieController.dispose();
-                              constants.navigateTo(PartnerLogin(), context);
-                            },
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  height: 200,
-                                ),
-                                Container(
-                                  margin: EdgeInsets.only(right: 10),
-                                  child: SvgPicture.asset(
-                                    'assets/svg/logoWithoutBackground.svg',
-                                    color: Colors.white,
-                                    width: constants.screenWidth * 0.25,
-                                    height: constants.screenWidth * 0.25,
+                  // alignment: Alignment.center,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onDoubleTap: () {
+                                chewieController.dispose();
+                                constants.navigateTo(PartnerLogin(), context);
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 200,
                                   ),
-                                ),
-                                Column(
-                                  children: [
-                                    SvgPicture.asset(
-                                      'assets/svg/EnglishName.svg',
+                                  Container(
+                                    margin: EdgeInsets.only(right: 10),
+                                    child: SvgPicture.asset(
+                                      'assets/svg/logoWithoutBackground.svg',
                                       color: Colors.white,
-                                      width: constants.screenWidth * 0.5,
+                                      width: constants.screenWidth * 0.25,
+                                      height: constants.screenWidth * 0.25,
                                     ),
-                                    Container(
-                                      height: 5,
-                                    ),
-                                    SvgPicture.asset(
-                                      'assets/svg/AraicName.svg',
-                                      color: Colors.white,
-                                      width: constants.screenWidth * 0.5,
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Container(
-                        height: 400,
-                        width: double.infinity,
-                        margin: const EdgeInsets.symmetric(horizontal: 30),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              color: const Color.fromARGB(255, 2, 2, 2)),
-                          borderRadius: BorderRadius.circular(15),
-                          color: Colors.black.withOpacity(0.1),
+                                  ),
+                                  Column(
+                                    children: [
+                                      SvgPicture.asset(
+                                        'assets/svg/EnglishName.svg',
+                                        color: Colors.white,
+                                        width: constants.screenWidth * 0.5,
+                                      ),
+                                      Container(
+                                        height: 5,
+                                      ),
+                                      SvgPicture.asset(
+                                        'assets/svg/AraicName.svg',
+                                        color: Colors.white,
+                                        width: constants.screenWidth * 0.5,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
                         ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: BackdropFilter(
-                              filter: ImageFilter.blur(sigmaY: 5, sigmaX: 5),
-                              child: Padding(
-                                padding: const EdgeInsets.all(25),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // const Spacer(),
-                                    // Center(
-                                    //     child: TextUtil(
-                                    //   text: "تسجيل الدخول",
-                                    //   weight: true,
-                                    //   size: 30,
-                                    // )),
-                                    // const Spacer(),
-                                    // TextUtil(
-                                    //   text: "إسم المسخدم او الإيميل",
-                                    // ),
-                                    Container(
-                                      height: 35,
-                                      decoration: const BoxDecoration(
-                                        border: Border(
-                                          bottom:
-                                              BorderSide(color: Colors.white),
-                                        ),
-                                      ),
-                                      child: TextFormField(
-                                        textAlign: TextAlign.right,
-                                        controller: emailController,
-                                        keyboardType:
-                                            TextInputType.emailAddress,
-                                        textDirection: TextDirection.ltr,
-                                        onChanged: (value) {
-                                          setState(() {
-                                            isEmail =
-                                                EmailValidator.validate(value);
-                                          });
-                                        },
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                        decoration: const InputDecoration(
-                                          // hintTextDirection: ,
-                                          hintText:
-                                              'البريد الإلكتروني أو أسم المستخدم',
-                                          hintStyle:
-                                              TextStyle(color: Colors.white),
-                                          prefixIcon: Icon(
-                                            Icons.mail,
-                                            color: Colors.white,
-                                          ),
-                                          fillColor: Colors.white,
-                                          border: InputBorder.none,
-                                        ),
-                                      ),
-                                    ),
-                                    Spacer(),
-                                    Container(
-                                      height: 35,
-                                      decoration: const BoxDecoration(
+                        SizedBox(
+                          height: 70,
+                        ),
+                        Container(
+                          height: 400,
+                          // width: double.infinity,
+                          margin: const EdgeInsets.symmetric(horizontal: 30),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                color: const Color.fromARGB(255, 2, 2, 2)),
+                            borderRadius: BorderRadius.circular(15),
+                            color: Colors.black.withOpacity(0.1),
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(20),
+                            child: BackdropFilter(
+                                filter: ImageFilter.blur(sigmaY: 5, sigmaX: 5),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(25),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      // const Spacer(),
+                                      // Center(
+                                      //     child: TextUtil(
+                                      //   text: "تسجيل الدخول",
+                                      //   weight: true,
+                                      //   size: 30,
+                                      // )),
+                                      // const Spacer(),
+                                      // TextUtil(
+                                      //   text: "إسم المسخدم او الإيميل",
+                                      // ),
+                                      Container(
+                                        height: 35,
+                                        decoration: const BoxDecoration(
                                           border: Border(
-                                              bottom: BorderSide(
-                                                  color: Colors.white))),
-                                      child: TextFormField(
-                                        controller: passwordController,
-                                        keyboardType:
-                                            TextInputType.visiblePassword,
-                                        obscureText: true,
-                                        textDirection: TextDirection.ltr,
-                                        textAlign: TextAlign.right,
-                                        style: const TextStyle(
-                                            color: Colors.white),
-                                        decoration: const InputDecoration(
-                                          hintText: 'كلمة المرور',
-                                          hintStyle:
-                                              TextStyle(color: Colors.white),
-                                          prefixIcon: Icon(
-                                            Icons.lock,
-                                            color: Colors.white,
+                                            bottom:
+                                                BorderSide(color: Colors.white),
                                           ),
-                                          fillColor: Colors.white,
-                                          border: InputBorder.none,
+                                        ),
+                                        child: TextFormField(
+                                          textAlign: TextAlign.right,
+                                          controller: emailController,
+                                          keyboardType:
+                                              TextInputType.emailAddress,
+                                          textDirection: TextDirection.ltr,
+                                          onChanged: (value) {
+                                            setState(() {
+                                              isEmail = EmailValidator.validate(
+                                                  value);
+                                            });
+                                          },
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                          decoration: const InputDecoration(
+                                            // hintTextDirection: ,
+                                            hintText:
+                                                'البريد الإلكتروني أو أسم المستخدم',
+                                            hintStyle:
+                                                TextStyle(color: Colors.white),
+                                            prefixIcon: Icon(
+                                              Icons.mail,
+                                              color: Colors.white,
+                                            ),
+                                            fillColor: Colors.white,
+                                            border: InputBorder.none,
+                                          ),
                                         ),
                                       ),
-                                    ),
-
-                                    const Spacer(),
-
-                                    const Spacer(),
-                                    Container(
-                                      height: 40,
-                                      width: double.infinity,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius:
-                                              BorderRadius.circular(30)),
-                                      alignment: Alignment.center,
-                                      child: GestureDetector(
-                                        onTap: () async {
-                                          await FirebaseCustomAuth().SignIn(
-                                              isEmail
-                                                  ? emailController.text.trim()
-                                                  : "${emailController.text.trim()}@user.madalh",
-                                              passwordController.text.trim());
-                                          if (auth.currentUser != null) {
-                                            navigateTo(HomePage(), context);
-                                          }
-                                        },
-                                        child: constants.longButton(
-                                            'تسجيل الدخول', context,
-                                            textColor: constants.azure1),
+                                      Spacer(),
+                                      Container(
+                                        height: 35,
+                                        decoration: const BoxDecoration(
+                                            border: Border(
+                                                bottom: BorderSide(
+                                                    color: Colors.white))),
+                                        child: TextFormField(
+                                          controller: passwordController,
+                                          keyboardType:
+                                              TextInputType.visiblePassword,
+                                          obscureText: true,
+                                          textDirection: TextDirection.ltr,
+                                          textAlign: TextAlign.right,
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                          decoration: const InputDecoration(
+                                            hintText: 'كلمة المرور',
+                                            hintStyle:
+                                                TextStyle(color: Colors.white),
+                                            prefixIcon: Icon(
+                                              Icons.lock,
+                                              color: Colors.white,
+                                            ),
+                                            fillColor: Colors.white,
+                                            border: InputBorder.none,
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                    Spacer(),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        GestureDetector(
+
+                                      const Spacer(),
+
+                                      Container(
+                                        height: 50,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            color: Colors.white,
+                                            borderRadius:
+                                                BorderRadius.circular(30)),
+                                        alignment: Alignment.center,
+                                        child: GestureDetector(
+                                          onTap: () async {
+                                            await FirebaseCustomAuth().SignIn(
+                                                isEmail
+                                                    ? emailController.text
+                                                        .trim()
+                                                    : "${emailController.text.trim()}@user.madalh",
+                                                passwordController.text.trim());
+                                            if (auth.currentUser != null) {
+                                              navigateTo(HomePage(), context);
+                                            }
+                                          },
+                                          child: constants.longButton(
+                                              'تسجيل الدخول', context,
+                                              textColor: constants.azure1),
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          GestureDetector(
+                                              onTap: () => constants.navigateTo(
+                                                  registerScreens(), context),
+                                              child: Text(
+                                                'إنشاء حساب جديد',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: constants.azure1,
+                                                    fontSize: 17),
+                                              )),
+                                          Spacer(),
+                                          GestureDetector(
                                             onTap: () {
                                               navigateTo(RegisterScreenForget(),
                                                   context);
                                             },
                                             child: constants.smallText(
                                                 'نسيت كلمة السر؟', context,
-                                                color: Colors.white))
-                                      ],
-                                    ),
+                                                color: Colors.white),
+                                          ),
+                                        ],
+                                      ),
 
-                                    const Spacer(),
-                                    Center(
-                                        child: TextUtil(
-                                      text: "ليس لديك حساب؟",
-                                      size: 15,
-                                      weight: true,
-                                    )),
-                                    Center(
-                                      child: GestureDetector(
-                                          onTap: () => constants.navigateTo(
-                                              registerScreens(), context),
-                                          child: Text(
-                                            'إنشاء حساب جديد',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: constants.azure1),
-                                          )),
-                                    ),
-                                    const Spacer(),
-                                    // Spacer(),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        GestureDetector(
-                                            onTap: () {
-                                              navigateTo(TermsAndConditions(),
-                                                  context);
-                                            },
-                                            child: Text(
-                                              ' شروط الإستخدام و الخصوصية',
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Theme.of(context)
-                                                      .primaryColor),
-                                            )),
-                                        Container(
-                                          width: 5,
-                                        ),
-                                        Text(
-                                          'عند المتابعة اوافق على',
-                                          style: TextStyle(color: Colors.white),
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              )),
+                                      const Spacer(),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          GestureDetector(
+                                              onTap: () {
+                                                navigateTo(TermsAndConditions(),
+                                                    context);
+                                              },
+                                              child: Text(
+                                                ' شروط الإستخدام و الخصوصية',
+                                                style: TextStyle(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Theme.of(context)
+                                                        .primaryColor),
+                                              )),
+                                          Container(
+                                            width: 5,
+                                          ),
+                                          Text(
+                                            'عند المتابعة اوافق على',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                )),
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

@@ -12,7 +12,6 @@ import 'package:madalh/controllers/constants.dart' as constants;
 
 import 'package:share_plus/share_plus.dart' as share;
 
-
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -92,8 +91,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       });
     }
   }
-
-
 
   void _showWhy3Dialog(BuildContext context, dialog1option, dialog2option) {
     showDialog(
@@ -811,6 +808,26 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             trailing: Icon(Bootstrap.share),
                           ),
                         ),
+                      ),
+                      StreamBuilder(
+                        stream: FirebaseFirestore.instance
+                            .collection('musers')
+                            .doc(FirebaseAuth.instance.currentUser!.uid)
+                            .snapshots(),
+                        builder: (BuildContext context,
+                            AsyncSnapshot<dynamic> snapshot) {
+                          if (snapshot.data['promocode'] == null) {
+                            return constants.smallText(
+                              '${snapshot.data['promocode'] ?? 0}',
+                              context,
+                            );
+                          } else {
+                            return constants.bigText(
+                              'لا يوجد برموكود للشريك',
+                              context,
+                            );
+                          }
+                        },
                       ),
                       GestureDetector(
                         onTap: () {

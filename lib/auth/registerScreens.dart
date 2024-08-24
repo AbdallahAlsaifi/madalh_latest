@@ -36,6 +36,7 @@ class registerScreens extends StatefulWidget {
 class _registerScreensState extends State<registerScreens> {
   TextEditingController fname = TextEditingController();
   TextEditingController lname = TextEditingController();
+  TextEditingController promocode = TextEditingController();
   TextEditingController usernameOrEmail = TextEditingController();
   TextEditingController bd = TextEditingController();
   TextEditingController pNumber = TextEditingController();
@@ -388,6 +389,7 @@ class _registerScreensState extends State<registerScreens> {
                     bool tryToSignUp = await FirebaseCustomAuth().signUpUser(
                         fname: fname.text.trim().toLowerCase(),
                         lname: lname.text.trim().toLowerCase(),
+                        promocode: promocode.text,
                         context: context,
                         email: isEmail == true
                             ? usernameOrEmail.text.trim().toLowerCase()
@@ -545,7 +547,9 @@ class _registerScreensState extends State<registerScreens> {
               'الإسم الأول',
               obsecure: false,
               context, onChanged: (fnamevalue) {
-            if (fname.text.isNotEmpty && lname.text.isNotEmpty) {
+            if (fname.text.isNotEmpty &&
+                lname.text.isNotEmpty &&
+                promocode.text.isNotEmpty) {
               setState(() {
                 isNameOk = true;
               });
@@ -563,7 +567,27 @@ class _registerScreensState extends State<registerScreens> {
               'الإسم الأخير',
               obsecure: false,
               context, onChanged: (lnamevalue) {
-            if (fname.text.isNotEmpty && lname.text.isNotEmpty) {
+            if (fname.text.isNotEmpty &&
+                lname.text.isNotEmpty &&
+                promocode.text.isNotEmpty) {
+              setState(() {
+                isNameOk = true;
+              });
+            } else {
+              setState(() {
+                isNameOk = false;
+              });
+            }
+          }),
+          SizedBox(height: 10),
+          constants.CustomTextField(
+              promocode,
+              'برموكود للشريك',
+              obsecure: false,
+              context, onChanged: (promocodeValue) {
+            if (fname.text.isNotEmpty &&
+                lname.text.isNotEmpty &&
+                promocode.text.isNotEmpty) {
               setState(() {
                 isNameOk = true;
               });
@@ -577,16 +601,17 @@ class _registerScreensState extends State<registerScreens> {
             height: constants.screenWidth * 0.3,
           ),
           GestureDetector(
-              onTap: () {
-                pageViewController.animateToPage(pageIndex + 1,
-                    duration: Duration(milliseconds: 150),
-                    curve: Curves.bounceIn);
-                setState(() {
-                  pageIndex += 1;
-                });
-              },
-              child: constants.longButton('المتابعة', context,
-                  buttonColor: Theme.of(context).primaryColor))
+            onTap: () {
+              pageViewController.animateToPage(pageIndex + 1,
+                  duration: Duration(milliseconds: 150),
+                  curve: Curves.bounceIn);
+              setState(() {
+                pageIndex += 1;
+              });
+            },
+            child: constants.longButton('المتابعة', context,
+                buttonColor: Theme.of(context).primaryColor),
+          )
         ],
       ),
     );
