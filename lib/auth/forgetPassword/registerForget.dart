@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,8 +12,6 @@ import '../../services/authentication.dart';
 import '../loginScreen.dart';
 import 'authproviderForget.dart';
 
-
-
 class RegisterScreenForget extends StatefulWidget {
   const RegisterScreenForget({super.key});
 
@@ -22,6 +21,7 @@ class RegisterScreenForget extends StatefulWidget {
 
 class _RegisterScreenForgetState extends State<RegisterScreenForget> {
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   Country selectedCountry = Country(
     phoneCode: "970",
@@ -40,16 +40,16 @@ class _RegisterScreenForgetState extends State<RegisterScreenForget> {
   void initState() {
     super.initState();
   }
-  Future<bool> checkNumber() async {
 
+  Future<bool> checkNumber() async {
     String fpn = phoneController.text.trim();
 
     String psStart = '+970';
     String ilStart = '+972';
+
     ///
 
-
-    final completeNum = '+'+selectedCountry.phoneCode+fpn;
+    final completeNum = '+' + selectedCountry.phoneCode + fpn;
 
     ///
     bool result = true;
@@ -76,12 +76,16 @@ class _RegisterScreenForgetState extends State<RegisterScreenForget> {
       child: Stack(
         children: [
           Scaffold(
-            appBar: AppBar(title: Text('نسيت كلمة السر'),centerTitle: true,automaticallyImplyLeading: true,),
+            appBar: AppBar(
+              title: Text('نسيت كلمة السر'),
+              centerTitle: true,
+              automaticallyImplyLeading: true,
+            ),
             resizeToAvoidBottomInset: false,
             body: SafeArea(
               child: Padding(
                 padding:
-                const EdgeInsets.symmetric(vertical: 25, horizontal: 35),
+                    const EdgeInsets.symmetric(vertical: 25, horizontal: 35),
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -94,7 +98,7 @@ class _RegisterScreenForgetState extends State<RegisterScreenForget> {
                           color: Colors.purple.shade50,
                         ),
                         child:
-                        SvgPicture.asset('assets/svg/phoneVerifyWomen.svg'),
+                            SvgPicture.asset('assets/svg/phoneVerifyWomen.svg'),
                       ),
                       const SizedBox(height: 20),
                       const Text(
@@ -150,7 +154,7 @@ class _RegisterScreenForgetState extends State<RegisterScreenForget> {
                                 showCountryPicker(
                                     context: context,
                                     countryListTheme:
-                                    const CountryListThemeData(
+                                        const CountryListThemeData(
                                       bottomSheetHeight: 550,
                                     ),
                                     onSelect: (value) {
@@ -171,20 +175,50 @@ class _RegisterScreenForgetState extends State<RegisterScreenForget> {
                           ),
                           suffixIcon: phoneController.text.length > 9
                               ? Container(
-                            height: 30,
-                            width: 30,
-                            margin: const EdgeInsets.all(10.0),
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: Colors.green,
-                            ),
-                            child: const Icon(
-                              Icons.done,
-                              color: Colors.white,
-                              size: 20,
-                            ),
-                          )
+                                  height: 30,
+                                  width: 30,
+                                  margin: const EdgeInsets.all(10.0),
+                                  decoration: const BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: Colors.green,
+                                  ),
+                                  child: const Icon(
+                                    Icons.done,
+                                    color: Colors.white,
+                                    size: 20,
+                                  ),
+                                )
                               : null,
+                        ),
+                      ),
+                      TextFormField(
+                        keyboardType: TextInputType.text,
+                        cursorColor: Colors.purple,
+                        controller: emailController,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            emailController.text = value;
+                          });
+                        },
+                        decoration: InputDecoration(
+                          hintText: "البريد الإلكتروني",
+                          hintStyle: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15,
+                            color: Colors.grey.shade600,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: Colors.black12),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: const BorderSide(color: Colors.black12),
+                          ),
                         ),
                       ),
                       const SizedBox(height: 20),
@@ -193,15 +227,8 @@ class _RegisterScreenForgetState extends State<RegisterScreenForget> {
                         height: 50,
                         child: FilledButton(
                             child: Text("تسجيل الدخول"),
-                            onPressed: () async{
-                              bool x = await checkNumber();
-                              if (x == false) {
-                                sendPhoneNumber();
-                                // Fluttertoast.showToast(msg: 'الرقم جديد');
-                              } else {
-                                Fluttertoast.showToast(msg: 'الرقم غير مرتبط بحساب');
-                              }
-
+                            onPressed: () async {
+                              forgotPassword(email: emailController.text);
                             }),
                       ),
                     ],
@@ -210,10 +237,38 @@ class _RegisterScreenForgetState extends State<RegisterScreenForget> {
               ),
             ),
           ),
-
         ],
       ),
     );
+  }
+
+  Future forgotPassword({required String email}) async {
+    try {
+      final auth = FirebaseAuth.instance;
+      await auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (err) {
+      return AwesomeDialog(
+        context: context,
+        dialogType: DialogType.warning,
+        animType: AnimType.rightSlide,
+        title: 'Question',
+        desc: err.message.toString(),
+        btnCancelOnPress: () {},
+        btnOkOnPress: () {},
+      ).show();
+      // throw Exception(err.message.toString());
+    } catch (err) {
+      return AwesomeDialog(
+        context: context,
+        dialogType: DialogType.error,
+        animType: AnimType.rightSlide,
+        title: 'Question',
+        desc: err.toString(),
+        btnCancelOnPress: () {},
+        btnOkOnPress: () {},
+      ).show();
+      // throw Exception(err.toString());
+    }
   }
 
   void sendPhoneNumber() {
